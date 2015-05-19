@@ -49,6 +49,8 @@ unirest.post("https://fullstackacademy.slack.com/services/hooks/slackbot?token=X
 });
 }
 
+recognize("katrina1.png");
+
 
 
 

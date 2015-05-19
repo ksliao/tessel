@@ -1,0 +1,68 @@
+(function(){dust.register("tl/apps/profile/my_profile/partial/life_span_param",p);
+var w={"startMonthInput":m,"startYearInput":g,"endMonthInput":s,"endYearInput":n};
+function p(B,A){A=A.shiftBlocks(w);
+return B.write("<ul>").section(A.get(["startDate"],false),A,{"block":o},null).write('<li class="life-span-no-end-date ').exists(A.get(["endYear"],false),A,{"block":v},null).write('">').reference(A.get(["i18n_life_span_param_present"],false),A,"h").write("</li>").section(A.get(["endDate"],false),A,{"block":u},null).section(A.get(["doesNotExpire"],false),A,{"block":a},null).write("</ul>").helper("jsControl",A,{"block":y},{"name":"Profile.LifeSpanParam"})
+}function o(B,A){A=A.shiftBlocks(w);
+return B.write('<li class="start-date">').exists(A.get(["isCJK"],false),A,{"else":d,"block":c},null).write('<span class="to">&#8211;</span></li>')
+}function m(B,A){A=A.shiftBlocks(w);
+return B.section(A.get(["month"],false),A,{"block":k},{"selectedValue":i})
+}function k(B,A){A=A.shiftBlocks(w);
+return B.write('<label for="').reference(A.getPath(true,["id"]),A,"h").write('" class="month">').reference(A.get(["i18n_month"],false),A,"h").write("</label>").partial("tl/apps/profile/my_profile/partial/select_with_value",A,null)
+}function i(B,A){A=A.shiftBlocks(w);
+return B.reference(A.get(["startMonth"],false),A,"h")
+}function g(B,A){A=A.shiftBlocks(w);
+return B.section(A.get(["year"],false),A,{"block":f},{"selectedValue":e})
+}function f(B,A){A=A.shiftBlocks(w);
+return B.write('<label for="').reference(A.getPath(true,["id"]),A,"h").write('" class="month">').reference(A.get(["i18n_year"],false),A,"h").write("</label>").partial("tl/apps/profile/my_profile/partial/select_with_value",A,null)
+}function e(B,A){A=A.shiftBlocks(w);
+return B.reference(A.get(["startYear"],false),A,"h")
+}function d(B,A){A=A.shiftBlocks(w);
+return B.block(A.getBlock("startMonthInput"),A,{},null).block(A.getBlock("startYearInput"),A,{},null)
+}function c(B,A){A=A.shiftBlocks(w);
+return B.block(A.getBlock("startYearInput"),A,{},null).block(A.getBlock("startMonthInput"),A,{},null)
+}function v(B,A){A=A.shiftBlocks(w);
+return B.write("hide")
+}function u(B,A){A=A.shiftBlocks(w);
+return B.write('<li class="end-date life-span-end-date ').notexists(A.get(["endYear"],false),A,{"block":t},null).write('" id="end-date">').exists(A.get(["isCJK"],false),A,{"else":h,"block":b},null).write("</li>")
+}function t(B,A){A=A.shiftBlocks(w);
+return B.write("hide")
+}function s(B,A){A=A.shiftBlocks(w);
+return B.section(A.get(["month"],false),A,{"block":r},{"selectedValue":q})
+}function r(B,A){A=A.shiftBlocks(w);
+return B.write('<label for="').reference(A.getPath(true,["id"]),A,"h").write('" class="month">').reference(A.get(["i18n_month"],false),A,"h").write("</label>").partial("tl/apps/profile/my_profile/partial/select_with_value",A,null)
+}function q(B,A){A=A.shiftBlocks(w);
+return B.reference(A.get(["endMonth"],false),A,"h")
+}function n(B,A){A=A.shiftBlocks(w);
+return B.section(A.get(["year"],false),A,{"block":l},{"selectedValue":j})
+}function l(B,A){A=A.shiftBlocks(w);
+return B.write('<label for="').reference(A.getPath(true,["id"]),A,"h").write('" class="month">').reference(A.get(["i18n_year"],false),A,"h").write("</label>").partial("tl/apps/profile/my_profile/partial/select_with_value",A,null)
+}function j(B,A){A=A.shiftBlocks(w);
+return B.reference(A.get(["endYear"],false),A,"h")
+}function h(B,A){A=A.shiftBlocks(w);
+return B.block(A.getBlock("endMonthInput"),A,{},null).block(A.getBlock("endYearInput"),A,{},null)
+}function b(B,A){A=A.shiftBlocks(w);
+return B.block(A.getBlock("endYearInput"),A,{},null).block(A.getBlock("endMonthInput"),A,{},null)
+}function a(B,A){A=A.shiftBlocks(w);
+return B.write('<li><label class="checkbox" id="does-not-expire"><input type="').reference(A.getPath(true,["type"]),A,"h").write('" name="').reference(A.getPath(true,["name"]),A,"h").write('" value="').reference(A.getPath(true,["value"]),A,"h").write('" ').notexists(A.get(["endYear"],false),A,{"block":z},null).write(' id="').reference(A.getPath(true,["id"]),A,"h").write('" />').reference(A.get(["doesNotExpireLabel"],false),A,"h").write("</label></li>")
+}function z(B,A){A=A.shiftBlocks(w);
+return B.write("checked")
+}function y(B,A){A=A.shiftBlocks(w);
+return B.write("{doesNotExpireCheckboxName: '").section(A.get(["doesNotExpire"],false),A,{"block":x},null).write("',endDateSelector : 'li.life-span-end-date',noEndDateSelector: 'li.life-span-no-end-date'}")
+}function x(B,A){A=A.shiftBlocks(w);
+return B.reference(A.getPath(true,["name"]),A,"h",["h","j","s"])
+}return p
+})();
+(function(){dust.register("life_span_param",dust.cache["tl/apps/profile/my_profile/partial/life_span_param"])
+})();(function(){dust.register("tl/apps/profile/shared/summary_example/description_smb_owner",a);
+function a(c,b){return c.write('<li class="summary-example"><img src="data:image/png;base64,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" width="40px" height="40px" alt="Real Estate Agent" /><div class="example-summary-user-detail"><dl><dt>Job title at company</dt><dd class="example-summary-headline">Real Estate Agent</dd></dl></div><p class="user-summary">I grew up in a family of entrepreneurs, and that background has informed and inspired everything about my dedication to top-notch customer service, hard work, and excellent results. As the owner of my own Real Estate business, my team and I will stop at nothing to guarantee that you find the home of your dreams. We have extensive experience in home inspection, construction, mortgage finance, and short sales.</p></li>')
+}return a
+})();
+(function(){dust.register("description_smb_owner",dust.cache["tl/apps/profile/shared/summary_example/description_smb_owner"])
+})();(function(){dust.register("tl/apps/profile/my_profile/embed/project_add",c);
+function c(e,d){return e.section(d.get(["Projects"],false),d,{"block":b},{"numContributors":"1","isSingleDate":"true"})
+}function b(e,d){return e.exists(d.getPath(false,["form","html"]),d,{"block":a},null)
+}function a(e,d){return e.write('<div id="project-blank-form" class="profile-blank-form"><!--').partial("tl/apps/profile/my_profile/embed/project_edit",d,null).write('--></div><div id="project-blank" class="profile-blank"></div>')
+}return c
+})();
+(function(){dust.register("project_add",dust.cache["tl/apps/profile/my_profile/embed/project_add"])
+})();

@@ -1,0 +1,265 @@
+(function(){dust.register("tl/apps/profile/my_profile/embed/follow_school",b);
+function b(d,c){return d.write('<p class="following-name"><a href="').reference(c.get(["link_school"],false),c,"h").write('"><span class="schools-logo">').partial("tl/shared/entity_links/school_image_linked_to_school",c,{"id":c.get(["id"],false),"className":"photo","size":60,"pictureId":c.get(["logoId"],false)}).write("</span><strong").helper("eq",c,{"block":a},{"key":c.get(["lix_enable_ugc_align"],false),"value":"enabled"}).write(">").reference(c.get(["canonicalName"],false),c,"h").write('</strong></a></p><p class="following-field">').reference(c.get(["geoRegion"],false),c,"h").write('</p><div class="select-follow-action"><a class="following-active selected following-active-color" href=\'').reference(c.get(["plato_school_unfollow"],false),c,"h").write('&trk=profile-edit-following-schools-unfollow-submit\'><span class="followingText">').reference(c.get(["i18n_currently_following"],false),c,"h").write('</span><span class="unfollowText">').reference(c.get(["i18n_unfollow"],false),c,"h").write('</span></a><a class="following-action" href=\'').reference(c.get(["plato_school_follow"],false),c,"h").write("&trk=profile-edit-following-schools-follow-submit'>").reference(c.get(["i18n_follow"],false),c,"h").write("</a></div>")
+}function a(d,c){return d.write(" ").helper("dirAttr",c,{},{"text":c.get(["canonicalName"],false)})
+}return b
+})();
+(function(){dust.register("follow_school",dust.cache["tl/apps/profile/my_profile/embed/follow_school"])
+})();(function(){dust.register("tl/shared/get_logo",p);
+var x={"imgElement":c,"path":t,"defaultGlyph":a,"defaultImg":A};
+function p(F,E){E=E.shiftBlocks(x);
+return F.helper("param",E,{},{"key":"pictureId"}).helper("param",E,{},{"key":"type","defaultVal":"company"}).helper("param",E,{},{"key":"width","defaultVal":"60"}).helper("param",E,{},{"key":"height","defaultVal":"60"}).helper("param",E,{},{"key":"altText","defaultVal":""}).helper("param",E,{},{"key":"className","defaultVal":""}).helper("param",E,{},{"key":"generateUrl","defaultVal":"false"}).helper("param",E,{},{"key":"useGlyphGhost","defaultVal":"false"}).helper("eq",E,{"else":o,"block":e},{"key":d,"value":"true"})
+}function o(F,E){E=E.shiftBlocks(x);
+return F.helper("eq",E,{"else":m,"block":k},{"key":f,"value":"true"})
+}function m(F,E){E=E.shiftBlocks(x);
+return F.block(E.getBlock("imgElement"),E,{},null)
+}function k(F,E){E=E.shiftBlocks(x);
+return F.exists(E.get(["pictureId"],false),E,{"else":i,"block":g},null)
+}function i(F,E){E=E.shiftBlocks(x);
+return F.block(E.getBlock("defaultGlyph"),E,{},null)
+}function g(F,E){E=E.shiftBlocks(x);
+return F.block(E.getBlock("imgElement"),E,{},null)
+}function f(F,E){E=E.shiftBlocks(x);
+return F.reference(E.get(["useGlyphGhost"],false),E,"h")
+}function e(F,E){E=E.shiftBlocks(x);
+return F.block(E.getBlock("path"),E,{},null)
+}function d(F,E){E=E.shiftBlocks(x);
+return F.reference(E.get(["generateUrl"],false),E,"h")
+}function c(F,E){E=E.shiftBlocks(x);
+return F.write("<img ").exists(E.get(["className"],false),E,{"block":v},null).write(" ").exists(E.get(["altText"],false),E,{"block":u},null).write(' width="').reference(E.get(["width"],false),E,"h").write('" height="').reference(E.get(["height"],false),E,"h").write('" src="').block(E.getBlock("path"),E,{},null).write('"/>')
+}function v(F,E){E=E.shiftBlocks(x);
+return F.write('class="').reference(E.get(["className"],false),E,"h").write('"')
+}function u(F,E){E=E.shiftBlocks(x);
+return F.write('alt="').reference(E.get(["altText"],false),E,"h").write('"')
+}function t(F,E){E=E.shiftBlocks(x);
+return F.exists(E.get(["pictureId"],false),E,{"else":s,"block":r},null)
+}function s(F,E){E=E.shiftBlocks(x);
+return F.block(E.getBlock("defaultImg"),E,{},null)
+}function r(F,E){E=E.shiftBlocks(x);
+return F.helper("eq",E,{"else":q,"block":n},{"key":E.get(["width"],false),"value":E.get(["height"],false),"type":"number"})
+}function q(F,E){E=E.shiftBlocks(x);
+return F.reference(E.get(["media_picture_link"],false),E,"h",["s"])
+}function n(F,E){E=E.shiftBlocks(x);
+return F.helper("select",E,{"block":l},{"key":E.get(["width"],false)})
+}function l(F,E){E=E.shiftBlocks(x);
+return F.helper("lte",E,{"block":j},{"value":100,"type":"number"}).helper("lte",E,{"block":h},{"value":200,"type":"number"}).helper("default",E,{"block":b},null)
+}function j(F,E){E=E.shiftBlocks(x);
+return F.reference(E.get(["media_picture_link_100"],false),E,"h",["s"])
+}function h(F,E){E=E.shiftBlocks(x);
+return F.reference(E.get(["media_picture_link_200"],false),E,"h",["s"])
+}function b(F,E){E=E.shiftBlocks(x);
+return F.reference(E.get(["media_picture_link_400"],false),E,"h",["s"])
+}function a(F,E){E=E.shiftBlocks(x);
+return F.write('<div aria-role="img"').exists(E.get(["className"],false),E,{"block":D},null).exists(E.get(["altText"],false),E,{"block":C},null).write('><div class="glyph" aria-hidden="true"></div>').exists(E.get(["altText"],false),E,{"block":B},null).write("</div>")
+}function D(F,E){E=E.shiftBlocks(x);
+return F.write(' class="').reference(E.get(["className"],false),E,"h").write('"')
+}function C(F,E){E=E.shiftBlocks(x);
+return F.write(' title="').reference(E.get(["altText"],false),E,"h").write('"')
+}function B(F,E){E=E.shiftBlocks(x);
+return F.write('<span class="alt">').reference(E.get(["altText"],false),E,"h").write("</span>")
+}function A(F,E){E=E.shiftBlocks(x);
+return F.helper("eq",E,{"else":z,"block":y},{"value":"50","key":w})
+}function z(F,E){E=E.shiftBlocks(x);
+return F.reference(E.get(["genericGhostImage"],false),E,"h")
+}function y(F,E){E=E.shiftBlocks(x);
+return F.reference(E.get(["ghostImage60"],false),E,"h")
+}function w(F,E){E=E.shiftBlocks(x);
+return F.reference(E.get(["width"],false),E,"h")
+}return p
+})();
+(function(){dust.register("get_logo",dust.cache["tl/shared/get_logo"])
+})();(function(){dust.register("tl/apps/profile/my_profile/partial/following_limit_visible_items",e);
+function e(i,h){return i.helper("gt",h,{"block":d},{"key":b,"value":"8","type":"number"}).helper("math",h,{"block":a},{"key":f,"method":"mod","operand":"4"})
+}function d(i,h){return i.helper("gte",h,{"block":c},{"key":h.get(["$idx"],false),"value":"7","type":"number"})
+}function c(i,h){return i.write("hidden hidden-groups")
+}function b(i,h){return i.reference(h.get(["count"],false),h,"h")
+}function a(i,h){return i.helper("eq",h,{"block":g},{"value":"0","type":"number"})
+}function g(i,h){return i.write(" rowfirst")
+}function f(i,h){return i.reference(h.get(["$idx"],false),h,"h")
+}return e
+})();
+(function(){dust.register("following_limit_visible_items",dust.cache["tl/apps/profile/my_profile/partial/following_limit_visible_items"])
+})();(function(){dust.register("tl/apps/profile/my_profile/embed/follow_company",i);
+var a={"companyHeadline":f};
+function i(k,j){j=j.shiftBlocks(a);
+return k.write('<p class="following-name"><a href="').reference(j.get(["link_biz"],false),j,"h").write('"><span class="companies-logo">').exists(j.get(["logoId"],false),j,{"else":h,"block":g},null).write("</span><strong>").reference(j.get(["canonicalName"],false),j,"h").write("</strong></a></p>").write('<p class="following-field">').block(j.getBlock("companyHeadline"),j,{},null).write('</p><div class="select-follow-action"><a class="following-active selected following-active-color" href=\'').reference(j.get(["biz_follow"],false),j,"h").write('&fl=stop&trk=profile-edit-following-companies-unfollow-submit\'><span class="followingText">').reference(j.get(["i18n_currently_following"],false),j,"h").write('</span><span class="unfollowText">').reference(j.get(["i18n_unfollow"],false),j,"h").write('</span></a><a class="following-action" href=\'').reference(j.get(["biz_follow"],false),j,"h").write("&fl=start&trk=profile-edit-following-companies-follow-submit'>").reference(j.get(["i18n_follow"],false),j,"h").write("</a></div>")
+}function h(k,j){j=j.shiftBlocks(a);
+return k.write("<img src='").reference(j.get(["no_logo"],false),j,"h",["s"]).write('\' width="80" height="48" class="photo" alt="').reference(j.get(["canonicalName"],false),j,"h").write('"/>')
+}function g(k,j){j=j.shiftBlocks(a);
+return k.write("<img src='").reference(j.get(["logo"],false),j,"h",["s"]).write('\' alt=""/>')
+}function f(k,j){j=j.shiftBlocks(a);
+return k.exists(j.get(["isBrand"],false),j,{"else":e,"block":d},null)
+}function e(k,j){j=j.shiftBlocks(a);
+return k.reference(j.get(["ind_lookup"],false),j,"h")
+}function d(k,j){j=j.shiftBlocks(a);
+return k.exists(j.get(["parentName"],false),j,{"else":c,"block":b},null)
+}function c(k,j){j=j.shiftBlocks(a);
+return k.reference(j.get(["i18n_a_showcase_page"],false),j,"h")
+}function b(k,j){j=j.shiftBlocks(a);
+return k.reference(j.get(["i18n_a_showcase_page_by_company"],false),j,"h",["s"])
+}return i
+})();
+(function(){dust.register("follow_company",dust.cache["tl/apps/profile/my_profile/embed/follow_company"])
+})();(function(){dust.register("tl/apps/profile/my_profile/embed/groups",m);
+var t={"img_src":e};
+function m(v,u){u=u.shiftBlocks(t);
+return v.exists(u.getPath(false,["groupsMpr","groups"]),u,{"block":l},null)
+}function l(v,u){u=u.shiftBlocks(t);
+return v.section(u.get(["groupsMpr"],false),u,{"block":j},null)
+}function j(v,u){u=u.shiftBlocks(t);
+return v.helper("gt",u,{"block":h},{"key":g,"value":"0","type":"number"})
+}function h(v,u){u=u.shiftBlocks(t);
+return v.write('<div id="groups" class="profile-groups section" tabindex="0" data-total-num-groups="').reference(u.getPath(true,["groups","length"]),u,"h").write('"><header class="header"><h2>').reference(u.get(["i18n_GROUPS"],false),u,"h",["et","s"]).write('</h2><div class="edit-tools"><a class="edit-button" href=\'').reference(u.get(["groups_central_url"],false),u,"h",["s"]).write("'>").reference(u.get(["i18n_manage_groups"],false),u,"h").write('</a></div></header><ul class="groups-list entity">').section(u.get(["groups"],false),u,{"block":f},null).exists(u.get(["groupSeeMore"],false),u,{"block":i},null).write("</ul></div>")
+}function f(v,u){u=u.shiftBlocks(t);
+return v.write("<li ").helper("math",u,{"block":b},{"key":s,"method":"mod","operand":"4"}).write('><p class="groups-name"><a href="').reference(u.get(["link_groups"],false),u,"h").write('&trk=prof-groups-membership-logo"><img src="').block(u.getBlock("img_src"),u,{},null).write('" width="100" height="50" alt="').reference(u.get(["name"],false),u,"h").write('"/></a><a href="').reference(u.get(["link_groups"],false),u,"h").write('&trk=prof-groups-membership-name" class="group-link"><strong>').reference(u.get(["name"],false),u,"h").write("</strong></a></p>").exists(u.get(["isTopContributor"],false),u,{"block":r},null).exists(u.get(["fmt_numMembers"],false),u,{"block":q},null).exists(u.get(["isPublic"],false),u,{"else":p,"block":o},null).write("</li>")
+}function e(v,u){u=u.shiftBlocks(t);
+return v.exists(u.get(["logoID"],false),u,{"else":d,"block":c},null)
+}function d(v,u){u=u.shiftBlocks(t);
+return v.reference(u.get(["default_icon"],false),u,"h",["s"])
+}function c(v,u){u=u.shiftBlocks(t);
+return v.reference(u.get(["link_media"],false),u,"h",["s"])
+}function b(v,u){u=u.shiftBlocks(t);
+return v.helper("eq",u,{"block":a},{"value":"0","type":"number"})
+}function a(v,u){u=u.shiftBlocks(t);
+return v.write(' class="row-first" ')
+}function s(v,u){u=u.shiftBlocks(t);
+return v.reference(u.get(["$idx"],false),u,"h")
+}function r(v,u){u=u.shiftBlocks(t);
+return v.write('<p class="groups-top-contributor">').reference(u.get(["i18n_group_top_contributor"],false),u,"h",["et","s"]).write("</p>")
+}function q(v,u){u=u.shiftBlocks(t);
+return v.write('<p class="groups-stats">').reference(u.get(["i18n_numMembers"],false),u,"h",["et","s"]).write("</p>")
+}function p(v,u){u=u.shiftBlocks(t);
+return v.write('<p class="groups-stats">').reference(u.get(["i18n_private_group"],false),u,"h",["et","s"]).write("</p>")
+}function o(v,u){u=u.shiftBlocks(t);
+return v.write('<a class="groups-stats" href="').reference(u.get(["link_groups_settings"],false),u,"h").write('"><span class="groups-visibility">').exists(u.get(["isVisibleOnProfile"],false),u,{"else":n,"block":k},null).write('</span><span class="groups-visibility-change">').reference(u.get(["i18n_change"],false),u,"h",["et","s"]).write("</span></a>")
+}function n(v,u){u=u.shiftBlocks(t);
+return v.reference(u.get(["i18n_hidden_group"],false),u,"h",["et","s"])
+}function k(v,u){u=u.shiftBlocks(t);
+return v.reference(u.get(["i18n_visible_group"],false),u,"h",["et","s"])
+}function i(v,u){u=u.shiftBlocks(t);
+return v.write('<li class="see-more"><button type="button" class="see-arrow"><span></span></button><button type="button" class="see-action">').reference(u.get(["i18n_group_see_more"],false),u,"h",["et","s"]).write('</button></li><li class="see-less"><button type="button" class="see-arrow"><span></span></button><button type="button" class="see-action">').reference(u.get(["i18n_see_less"],false),u,"h",["et","s"]).write("</button></li>")
+}function g(v,u){u=u.shiftBlocks(t);
+return v.reference(u.getPath(true,["groups","length"]),u,"h")
+}return m
+})();
+(function(){dust.register("groups",dust.cache["tl/apps/profile/my_profile/embed/groups"])
+})();(function(){dust.register("tl/apps/profile/my_profile/embed/follow",C);
+var K={"ifHideInfluencer":h,"ifHideNews":c,"ifHideCompany":D,"ifHideSchool":o,"follow_module_content":m};
+function C(M,L){L=L.shiftBlocks(K);
+return M.section(L.get(["Following"],false),L,{"block":B},null)
+}function B(M,L){L=L.shiftBlocks(K);
+return M.section(L.get(["follow"],false),L,{"block":A},{"schoolFolloweeCount":L.getPath(false,["follow_school","schoolFolloweeCount"]),"channelsFolloweeCount":L.getPath(false,["follow_channels","paging","count"]),"influencersFolloweeCount":L.getPath(false,["follow_people","count"])})
+}function A(M,L){L=L.shiftBlocks(K);
+return M.exists(L.get(["isFollowing"],false),L,{"else":y,"block":n},null)
+}function y(M,L){L=L.shiftBlocks(K);
+return M.helper("gt",L,{"else":w,"block":p},{"key":L.get(["schoolFolloweeCount"],false),"value":"0","type":"number"})
+}function w(M,L){L=L.shiftBlocks(K);
+return M.helper("gt",L,{"else":u,"block":r},{"key":L.get(["channelsFolloweeCount"],false),"value":"0","type":"number"})
+}function u(M,L){L=L.shiftBlocks(K);
+return M.helper("gt",L,{"block":s},{"key":L.get(["influencersFolloweeCount"],false),"value":"0","type":"number"})
+}function s(M,L){L=L.shiftBlocks(K);
+return M.block(L.getBlock("follow_module_content"),L,{},null)
+}function r(M,L){L=L.shiftBlocks(K);
+return M.block(L.getBlock("follow_module_content"),L,{},null)
+}function p(M,L){L=L.shiftBlocks(K);
+return M.block(L.getBlock("follow_module_content"),L,{},null)
+}function n(M,L){L=L.shiftBlocks(K);
+return M.block(L.getBlock("follow_module_content"),L,{},null)
+}function m(M,L){L=L.shiftBlocks(K);
+return M.section(L.get(["follow"],false),L,{"block":l},null)
+}function l(M,L){L=L.shiftBlocks(K);
+return M.write('<div class="section" tabindex="0"><div class="profile-following"><header class="header"><h3>').reference(L.get(["i18n_following_section_label"],false),L,"h").write('</h3><div class="edit-tools"><ul><li><a class="edit-button" href=\'').reference(L.get(["pulse_settings"],false),L,"h",["s"]).write("'>").reference(L.get(["i18n_customize_news"],false),L,"h").write('<em></em></a></li><li><a class="edit-button" href=\'').reference(L.get(["edit_follow"],false),L,"h",["s"]).write("'>").reference(L.get(["i18n_customize_companies"],false),L,"h").write('<em></em></a></li></ul></div></header><div class="following-container">').section(L.get(["follow_people"],false),L,{"block":k},null).section(L.get(["follow_channels"],false),L,{"block":f},null).exists(L.get(["companyFolloweeCount"],false),L,{"block":J},null).section(L.get(["follow_school"],false),L,{"block":x},null).write('<span class="loader" role="alert">').reference(L.get(["i18n_loader_loading"],false),L,"h").write('</span></div></div><a class="add-promo-button" type="button" title="').reference(L.get(["i18n_discover_more"],false),L,"h").write('" href="').reference(L.get(["following_discover_more"],false),L,"h").write('">').reference(L.get(["i18n_discover_more"],false),L,"h").write("</a></div>")
+}function k(M,L){L=L.shiftBlocks(K);
+return M.helper("gt",L,{"block":j},{"key":g,"value":"0","type":"number"})
+}function j(M,L){L=L.shiftBlocks(K);
+return M.write('<div class="following-influencers following-category entity"><h4 class="main-header-field">').reference(L.get(["i18n_influencers"],false),L,"h").write("</h4><ul>").section(L.get(["influencers"],false),L,{"block":i},null).partial("tl/apps/profile/my_profile/partial/following_see_more",L,{"seeMoreCount":L.get(["influencerSeeMore"],false)}).write("</ul></div>")
+}function i(M,L){L=L.shiftBlocks(K);
+return M.write('<li class="').block(L.getBlock("ifHideInfluencer"),L,{},null).write('">').partial("tl/apps/megaphone/partial/influencer_card_body",L,{"viewerId":L.get(["global_memberId"],false),"enableFollowerCount":"false"}).write("</li>")
+}function h(M,L){L=L.shiftBlocks(K);
+return M.partial("tl/apps/profile/my_profile/partial/following_limit_visible_items",L,null)
+}function g(M,L){L=L.shiftBlocks(K);
+return M.reference(L.get(["count"],false),L,"h")
+}function f(M,L){L=L.shiftBlocks(K);
+return M.helper("gt",L,{"block":e},{"key":L.getPath(false,["paging","count"]),"value":"0","type":"number"})
+}function e(M,L){L=L.shiftBlocks(K);
+return M.write('<div class="following-channels following-category entity"><h4 class="main-header-field">').reference(L.get(["i18n_news"],false),L,"h").write('</h4><ul id="follow-channel-list">').section(L.get(["channels"],false),L,{"block":d},null).section(L.get(["paging"],false),L,{"block":a},null).write("</ul></div>")
+}function d(M,L){L=L.shiftBlocks(K);
+return M.write('<li class="').block(L.getBlock("ifHideNews"),L,{},null).write('">').partial("tl/apps/profile/my_profile/embed/follow_channel",L,null).write("</li>")
+}function c(M,L){L=L.shiftBlocks(K);
+return M.partial("tl/apps/profile/my_profile/partial/following_limit_visible_items",L,{"count":b})
+}function b(M,L){L=L.shiftBlocks(K);
+return M.reference(L.getPath(false,["paging","count"]),L,"h")
+}function a(M,L){L=L.shiftBlocks(K);
+return M.partial("tl/apps/profile/my_profile/partial/following_see_more",L,{"seeMoreCount":L.get(["displayCount"],false)})
+}function J(M,L){L=L.shiftBlocks(K);
+return M.helper("gt",L,{"block":I},{"key":L.get(["companyFolloweeCount"],false),"value":"0","type":"number"})
+}function I(M,L){L=L.shiftBlocks(K);
+return M.helper("select",L,{"block":H},{"key":z})
+}function H(M,L){L=L.shiftBlocks(K);
+return M.helper("eq",L,{"block":G},{"value":"enabled"}).helper("default",L,{"block":F},null)
+}function G(M,L){L=L.shiftBlocks(K);
+return M.partial("tl/apps/profile/my_profile/embed/following_companies_collapsed_view",L,null)
+}function F(M,L){L=L.shiftBlocks(K);
+return M.write('<div class="following-companies following-category entity"><h4 class="main-header-field">').reference(L.get(["i18n_companies"],false),L,"h").write("</h4><ul>").section(L.get(["companyFollowees"],false),L,{"block":E},null).partial("tl/apps/profile/my_profile/partial/following_see_more",L,{"count":L.get(["companyFolloweeCount"],false),"seeMoreCount":L.get(["companySeeMore"],false)}).write("</ul></div>")
+}function E(M,L){L=L.shiftBlocks(K);
+return M.write('<li class="').block(L.getBlock("ifHideCompany"),L,{},null).write('">').partial("tl/apps/profile/my_profile/embed/follow_company",L,null).write("</li>")
+}function D(M,L){L=L.shiftBlocks(K);
+return M.partial("tl/apps/profile/my_profile/partial/following_limit_visible_items",L,{"count":L.get(["companyFolloweeCount"],false)})
+}function z(M,L){L=L.shiftBlocks(K);
+return M.reference(L.get(["lix_companiesLoadViaAjax"],false),L,"h")
+}function x(M,L){L=L.shiftBlocks(K);
+return M.exists(L.get(["schoolFolloweeCount"],false),L,{"block":v},null)
+}function v(M,L){L=L.shiftBlocks(K);
+return M.helper("gt",L,{"block":t},{"key":L.get(["schoolFolloweeCount"],false),"value":"0","type":"number"})
+}function t(M,L){L=L.shiftBlocks(K);
+return M.write('<div class="following-schools following-category entity"><h4 class="main-header-field">').reference(L.get(["i18n_schools"],false),L,"h").write("</h4><ul>").section(L.get(["schoolFollowees"],false),L,{"block":q},null).partial("tl/apps/profile/my_profile/partial/following_see_more",L,{"count":L.get(["schoolFolloweeCount"],false),"seeMoreCount":L.get(["schoolSeeMore"],false)}).write("</ul></div>")
+}function q(M,L){L=L.shiftBlocks(K);
+return M.write('<li class="').block(L.getBlock("ifHideSchool"),L,{},null).write('">').partial("tl/apps/profile/my_profile/embed/follow_school",L,null).write("</li>")
+}function o(M,L){L=L.shiftBlocks(K);
+return M.partial("tl/apps/profile/my_profile/partial/following_limit_visible_items",L,{"count":L.get(["schoolFolloweeCount"],false)})
+}return C
+})();
+(function(){dust.register("follow",dust.cache["tl/apps/profile/my_profile/embed/follow"])
+})();(function(){dust.register("tl/shared/entity_links/school_image_linked_to_school",e);
+var g={"_inline__school_image":d};
+function e(j,i){i=i.shiftBlocks(g);
+return j.helper("param",i,{},{"key":"id"}).helper("param",i,{},{"key":"name"}).helper("param",i,{},{"key":"pictureId"}).helper("param",i,{},{"key":"size","defaultVal":"50"}).helper("param",i,{},{"key":"altText","defaultVal":i.get(["name"],false)}).helper("param",i,{},{"key":"imageClassName"}).helper("param",i,{},{"key":"anchorClassName"}).helper("param",i,{},{"key":"track","defaultVal":"school-photo"}).helper("param",i,{},{"key":"useGlyphGhost"}).exists(i.get(["id"],false),i,{"block":b},null)
+}function d(j,i){i=i.shiftBlocks(g);
+return j.helper("partial",i,{"block":c},{"key":"_partial__school_image","altText":i.get(["altText"],false),"pictureId":i.get(["pictureId"],false),"width":i.get(["size"],false),"height":i.get(["size"],false),"type":"school","className":i.get(["imageClassName"],false),"useGlyphGhost":i.get(["useGlyphGhost"],false)})
+}function c(j,i){i=i.shiftBlocks(g);
+return j.partial("tl/shared/get_logo",i,null)
+}function b(j,i){i=i.shiftBlocks(g);
+return j.exists(i.get(["name"],false),i,{"else":a,"block":h},null)
+}function a(j,i){i=i.shiftBlocks(g);
+return j.block(i.getBlock("_inline__school_image"),i,{},null)
+}function h(j,i){i=i.shiftBlocks(g);
+return j.write("<a").exists(i.get(["anchorClassName"],false),i,{"block":f},null).write(' href="').reference(i.get(["linkAuto_plato_school_1"],false),i,"h",["s"]).write('" title="').reference(i.get(["name"],false),i,"h").write('">').block(i.getBlock("_inline__school_image"),i,{},null).write("</a>")
+}function f(j,i){i=i.shiftBlocks(g);
+return j.write(' class="').reference(i.get(["anchorClassName"],false),i,"h").write('"')
+}return e
+})();
+(function(){dust.register("school_image_linked_to_school",dust.cache["tl/shared/entity_links/school_image_linked_to_school"])
+})();(function(){dust.register("tl/apps/profile/my_profile/embed/following_companies_collapsed_view",e);
+var f={"ifHideCompany":c};
+function e(i,h){h=h.shiftBlocks(f);
+return i.write('<div class="following-companies following-category entity collapsed-view" data-li-ajax-url="').reference(h.get(["getAllCompaniesUrl"],false),h,"h").write('"><h4 class="main-header-field">').reference(h.get(["i18n_companies"],false),h,"h").write("</h4><ul>").section(h.get(["companyFollowees"],false),h,{"block":d},null).exists(h.get(["companySeeMore"],false),h,{"block":b},null).write("</ul></div>")
+}function d(i,h){h=h.shiftBlocks(f);
+return i.write('<li class="').block(h.getBlock("ifHideCompany"),h,{},null).write('">').partial("tl/apps/profile/my_profile/embed/follow_company",h,null).write("</li>")
+}function c(i,h){h=h.shiftBlocks(f);
+return i.partial("tl/apps/profile/my_profile/partial/following_limit_visible_items",h,{"count":h.get(["companyFolloweeCount"],false)})
+}function b(i,h){h=h.shiftBlocks(f);
+return i.helper("gt",h,{"block":a},{"key":g,"value":"8","type":"number"})
+}function a(i,h){h=h.shiftBlocks(f);
+return i.write('<li class="see-more"><a class="see-arrow" href="#"><span></span></a><a class="see-action" href="#">').reference(h.get(["i18n_see_more_inline"],false),h,"h").write("</a></li>")
+}function g(i,h){h=h.shiftBlocks(f);
+return i.reference(h.get(["companyFolloweeCount"],false),h,"h")
+}return e
+})();
+(function(){dust.register("following_companies_collapsed_view",dust.cache["tl/apps/profile/my_profile/embed/following_companies_collapsed_view"])
+})();(function(){dust.register("tl/apps/profile/my_profile/partial/following_see_more",c);
+function c(e,d){return e.helper("gt",d,{"block":b},{"key":a,"value":"8","type":"number"})
+}function b(e,d){return e.write('<li class="see-more"><a class="see-arrow" href="#"><span></span></a><a class="see-action" href="#">').reference(d.get(["i18n_see_more_inline"],false),d,"h").write('</a></li><li class="see-less hidden"><a class="see-arrow" href="#"><span></span></a><a class="see-action" href="#">').reference(d.get(["i18n_see_less"],false),d,"h").write("</a></li>")
+}function a(e,d){return e.reference(d.get(["count"],false),d,"h")
+}return c
+})();
+(function(){dust.register("following_see_more",dust.cache["tl/apps/profile/my_profile/partial/following_see_more"])
+})();

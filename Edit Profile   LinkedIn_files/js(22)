@@ -1,0 +1,820 @@
+LI.define("EndorsementsPendingSkills");
+LI.EndorsementsPendingSkills=function(P,G){var b=50,K="guided-edit-promo-profile",g=this,i=[],r=false,a=null,n,e={},F,D,x,s,U,O,h,C,l,I,S,L;
+G={dataURL:G.dataURL,addURL:G.addURL,acceptURL:G.acceptURL,skipDestURL:G.skipDestURL,templateName:G.templateName,mapperURL:G.mapperURL,refreshSection:G.refreshSection,rejectImmediate:G.rejectImmediate===true,openGEOnCloseClick:G.openGEOnCloseClick===true};
+g.closeEvent=new YAHOO.util.CustomEvent("close");
+g.acceptedEvent=new YAHOO.util.CustomEvent("accepted");
+function N(){LI.asyncRequest("GET",G.dataURL,{success:function(W){if(W.responseText){S=W.responseText["pending_endorsement_dialog"];
+if(S&&S.HasUnapprovedEndorsements){F=S.currentSkillCount||0;
+S.containsAvailableTasks=!!G.skipDestURL;
+s=S.i18n_remove_p0_skills;
+x=S.i18n_remove_one;
+if(!YDom.getAncestorByClassName(P,"endorse-v2")){S.lix_promo_design="control"
+}if(S.skills&&S.skills.length>0){o(S.skills.split(","));
+delete S.skills
+}A(W.responseText)
+}}},custom:{error:R,exception:R}})
+}function A(W){dust.render(G.templateName,W,function(Z,X){var Y;
+if(!Z){Y=LI.domify(X);
+p(Y);
+P.appendChild(Y);
+E();
+if(WebTracking){WebTracking.trackUserAction("pending_skills_endorse_dialog")
+}}})
+}function p(Z){var ac=Y$("input[name=endorsedItemName]",Z),ab,Y,X;
+for(var aa=0,W=ac.length;
+aa<W;
+aa++){ab=ac[aa];
+Y=ab.value;
+if(e[Y]){X=YDom.getAncestorByClassName(ab,"endorsed-item");
+e[Y].push(X);
+YDom.addClass(X,"hidden-endorsement")
+}else{e[Y]=[]
+}}}function d(ad){var X=ad.Endorsers,ac=X.length,aa=null,ab=0,Z=null;
+if(X.length>1){for(var Y=0,W=Math.min(ac,4);
+Y<W;
+Y++){if(X[Y].pictureID){ab++;
+Z=Y
+}else{if(Z===null){Z=Y
+}}}if(ab<=1){ad.bestProfileImageURL=X[Z].pictureURL
+}}}function k(X){var W="";
+if(X&&!r){r=true;
+W=J(X);
+if(W){LI.asyncRequest("POST",G.addURL,{success:function(){M(X)
+},custom:{error:R,exception:R}},W)
+}else{M(X)
+}}}function M(X){var W;
+z(X);
+YConn.setForm(X);
+LI.asyncRequest("POST",G.acceptURL,{success:function(){g.acceptedEvent.fire();
+if(G.refreshSection&&G.mapperURL&&G.mapperURL.length){W=["profile_v2_skills"];
+LI.Profile2.Section.UpdateSectionsFromServer(G.mapperURL,W,null)
+}},custom:{error:R,exception:R}})
+}function o(Z){var W,Y=Z.length;
+for(var X=0;
+X<Y;
+X++){W=YUtil.Lang.trim(Z[X]);
+YDom.addClass(Y$('#profile-skills .endorse-item[data-endorsed-item-name="'+W+'"] .endorse-item-name')[0],"highlight")
+}}function j(){var W=jQuery;
+return W&&W.fn&&W.fn.Profile&&W.fn.Profile.startGuidedEditFromEndorsements
+}function f(){LI.toggleClass(YDom.get("wrapper"),K)
+}function c(){YDom.removeClass(YDom.get("wrapper"),K)
+}function E(){LI.Controls.parseFragment(P);
+U=YDom.get("accept-endorsements-id");
+n=Y$(".pending-list-actions",P,true);
+a=Y$(".pending-endorsements-list",P,true);
+D=Y$(".num-skills-on-profile",P,true);
+C=Y$(".endorsers-list-container",P,true);
+l=Y$(".endorsers-list",C,true);
+I=Y$(".endorsers-collage",P,true);
+if(G.rejectImmediate){O=YDom.get("rejected-endorsements");
+h=YDom.get("rejected-container")
+}T();
+if(j()){f()
+}YEvent.on(Y$(".close-endorsements",P,true),"click",function(W){YEvent.preventDefault(W);
+if(WebTracking){WebTracking.trackUserAction("pending_skills_endorse_close")
+}H(false,G.openGEOnCloseClick?jQuery.fn.Profile.startGuidedEditFromEndorsements:undefined)
+});
+YEvent.on(U,"submit",function(W){YEvent.preventDefault(W);
+k(YEvent.getTarget(W));
+H(true)
+});
+YEvent.on(Y$(".see-endorsers",P,true),"click",function(W){YEvent.preventDefault(W);
+LI.toggleClass(this,"expanded");
+if(C){m(C)
+}});
+YEvent.on(Y$(".skip-action",P,true),"click",function(W){YEvent.preventDefault(W);
+if(G.skipDestURL){if(WebTracking){WebTracking.trackUserAction("pending_skills_endorse_skip")
+}if(j()){H(false,jQuery.fn.Profile.startGuidedEditFromEndorsements)
+}else{window.location.href=G.skipDestURL
+}}});
+YEvent.on(Y$(".undo-action",P,true),"click",function(W){YEvent.preventDefault(W);
+v()
+});
+YEvent.on(P,"click",function(Z){var Y=YEvent.getTarget(Z),W,X;
+if(YDom.hasClass(Y,"remove-item")){YEvent.preventDefault(Z);
+W=YDom.getAncestorByClassName(Y,"endorsed-item");
+X=YDom.getNextSibling(W);
+if(G.rejectImmediate){w(W)
+}else{V(W)
+}if(X){Y$(".remove-item",X,true).focus()
+}else{YDom.get("accept-submit").focus()
+}T();
+if(t()){k(U);
+H(true)
+}}})
+}function m(X){var W;
+if(YDom.getStyle(X,"display")==="none"){W=Y$(".content",X,true);
+YDom.setStyle(X,"opacity","1");
+LI.show(X);
+LI.grow(X,W.offsetHeight)
+}else{LI.fade(X)
+}}function V(W){if(W){i.push(W);
+YDom.addClass(W,"rejected-item");
+LI.show(n)
+}}function v(){var W=i.pop();
+if(W){YDom.removeClass(W,"rejected-item");
+T();
+if(!i.length){LI.hide(n)
+}}}function t(){return Y$(".endorsed-item:not(.rejected-item):not(.hidden-endorsement)",a).length===0
+}function z(ad){var X=Y$(".endorsed-item",ad),ab,aa,Z=0,ac=0;
+for(var Y=0,W=X.length;
+Y<W;
+Y++){ab=X[Y];
+aa=YDom.hasClass(ab,"rejected-item");
+if(aa){u(ab)
+}q(ab,aa?"rejected":"accepted",aa?Z++:ac++)
+}}function u(X){var Z=Y$("input[name=endorsedItemName]",X,true).value,aa=e[Z];
+if(aa){for(var Y=0,W=aa.length;
+Y<W;
+Y++){YDom.addClass(aa[Y],"rejected-item")
+}if(G.rejectImmediate){aa.push(X)
+}else{delete e[Z]
+}}return aa
+}function q(aa,ab,ad){var X=Y$("input",aa),Y,ac;
+for(var Z=0,W=X.length;
+Z<W;
+Z++){ac=X[Z];
+Y=YDom.getAttribute(ac,"name").replace("endorsed",ab);
+YDom.setAttribute(ac,"name",Y+"-"+ad)
+}}function J(ab){var Y=Y$(".endorsed-item:not(.rejected-item):not(.hidden-endorsement) input[name=endorsedItemName]",ab),aa=Math.min(b-F,Y.length),W="",Z={};
+if(aa>0){for(var X=0;
+X<aa;
+X++){Z["skills_"+X+"_skill"]=encodeURIComponent(Y[X].value)
+}Z.timestamp=ab.timestamp.value;
+Z.locale=ab.locale.value;
+Z.defaultLocale=ab.defaultLocale.value;
+W=LI.addParams("",Z,true)
+}return W
+}function T(){var X,Y,W="";
+if(D){X=Y$(".endorsed-item:not(.rejected-item):not(.hidden-endorsement) input[name=endorsedItemName]",P).length;
+Y=F+X-b;
+if(Y>0){W=Y===1?x:s.replace("[count]",Y);
+D.innerHTML=W;
+LI.show(D)
+}else{LI.hide(D)
+}}}function H(W,X){if(j()&&!W){c()
+}LI.fade(P,X);
+g.closeEvent.fire(W)
+}function R(){H(true);
+return false
+}function w(ab){var Y,ad,aa,ae,ac=[],Z;
+if(!ab){return
+}YDom.addClass(ab,"rejected-item");
+Y=u(ab);
+h.innerHTML="";
+Z=Y$("input[name=endorsedItemName]",ab,true).value;
+for(var X=0,W=Y.length;
+X<W;
+X++){ad=Y[X];
+aa=Y$("input[name=endorsedEndorserId]",ad,true);
+ae=aa&&aa.value;
+if(ae){ac.push(ae)
+}q(ad,"rejected",X);
+h.appendChild(ad)
+}YConn.setForm(O);
+LI.asyncRequest("POST",G.acceptURL,{success:function(){var ah;
+if(l){for(var ag=0,af=ac.length;
+ag<af;
+ag++){ah=ac[ag];
+B(ah,Z);
+Q(ah)
+}}},custom:{error:R,exception:R}})
+}function Q(Z){var Y,W,ab,aa,X=U&&Y$("input[name=endorsedEndorserId][value="+Z+"]",U);
+if(!(X&&X.length)){Y=Y$(".endorser[data-endorser-id="+Z+"]",l,true);
+if(Y){l.removeChild(Y);
+W=Y$(".endorser",l);
+if(W.length===1){LI.hide(Y$(".see-endorsers",P,true));
+m(C)
+}}ab=Y$(".collage-item[data-endorser-id="+Z+"]",I,true);
+if(ab){I.removeChild(ab);
+aa=Y$(".collage-item",I);
+if(aa.length===1){YDom.addClass(Y$(".photo",aa[0],true),"large-photo")
+}}}}function B(Z,Y){var X,W,aa;
+if(!L){y()
+}W=L[Z];
+X=W.indexOf(Y);
+if(X!==-1){W.splice(X,1);
+if(W.length){aa=Y$(".endorser[data-endorser-id="+Z+"] .endorsed-items",l,true);
+if(aa){aa.innerHTML=W.join(", ")
+}}}}function y(){var Z=S.EndorsedItems,aa,Y;
+L={};
+for(var X=0,W=Z.length;
+X<W;
+X++){aa=Z[X];
+Y=aa.endorserId;
+if(!L[Y]){L[Y]=[]
+}L[Y].push(aa.endorsedItemName)
+}}N()
+};(function(){dust.register("tl/apps/profile/endorsements/pending_endorsement_dialog",Q);
+var Y={"endorserCollageImage":O,"isKaty":K};
+function Q(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.section(Z.get(["pending_endorsement_dialog"],false),Z,{"block":P},null)
+}function P(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.write('<div class="pending-endorsements').section(Z.getPath(true,[]),Z,{"block":i},{"output":" promo-v3"}).write('"><button class="close-action').section(Z.getPath(true,[]),Z,{"block":g},{"output":"-katy"}).write(' close-endorsements" title="').reference(Z.get(["i18n_close"],false),Z,"h").write('"><span aria-hidden="true" class="close-glyph"></span><span class="close-text">').reference(Z.get(["i18n_close"],false),Z,"h").write('</span></button><h3 class="endorse-accept-title">').helper("select",Z,{"block":e},{"key":X}).write('<span class="a11y-hidden">').reference(Z.get(["i18n_will_not_be_added"],false),Z,"h",["et","s"]).write("</span></h3>").exists(Z.get(["Endorsers"],false),Z,{"block":W},null).write('<div class="pending-endorsements-container"><form id="accept-endorsements-id" name="accept-endorsements" method="POST"><ul class="pending-endorsements-list">').section(Z.get(["EndorsedItems"],false),Z,{"block":J},null).helper("ne",Z,{"block":H},{"key":Z.get(["lix_rejectImmediate"],false),"value":"B"}).write("</ul>").helper("math",Z,{"block":E},{"key":Z.get(["currentSkillCount"],false),"method":"add","operand":Z.getPath(false,["EndorsedItems","length"])}).write('<div class="endorse-actions-wrapper"><input type="submit" name="accept-save" value="').reference(Z.get(["i18n_add"],false),Z,"h").write('" class="btn-action accept-endorsements" id="accept-submit"/>').exists(Z.get(["containsAvailableTasks"],false),Z,{"block":A},null).helper("gt",Z,{"block":z},{"key":Z.get(["TotalPeopleCount"],false),"value":"1","type":"number"}).write('</div><input type="hidden" name="locale" value="').reference(Z.getPath(false,["profileLocale","language"]),Z,"h").write("_").reference(Z.getPath(false,["profileLocale","country"]),Z,"h").write('"><input type="hidden" name="defaultLocale" value="').reference(Z.getPath(false,["defaultProfileLocale","language"]),Z,"h").write("_").reference(Z.getPath(false,["defaultProfileLocale","country"]),Z,"h").write('"><input type="hidden" name="timestamp" value="').reference(Z.get(["skillSectionLastEditTimestamp"],false),Z,"h").write('"></form>').helper("eq",Z,{"block":y},{"key":Z.get(["lix_rejectImmediate"],false),"value":"B"}).write("</div>").helper("gt",Z,{"block":x},{"key":Z.get(["TotalPeopleCount"],false),"value":"1","type":"number"}).write("</div>")
+}function O(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.write('<a class="collage-item" href="').reference(Z.get(["profileURL"],false),Z,"h").write('" data-endorser-id="').reference(Z.get(["memberID"],false),Z,"h").write('"><img class="photo ').helper("eq",Z,{"block":M},{"key":Z.get(["$len"],false),"value":"1","type":"number"}).write('" src="').reference(Z.get(["pictureURL"],false),Z,"h").write('" title="').reference(Z.get(["i18n_view_p0_profile"],false),Z,"h",["et","s"]).write('" alt="').reference(Z.get(["i18n_view_p0_profile"],false),Z,"h",["et","s"]).write('"/></a>')
+}function M(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.write("large-photo")
+}function K(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.helper("select",Z,{"block":I},{"key":Z.get(["lix_promo_design"],false)})
+}function I(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.helper("eq",Z,{"block":G},{"value":"B"}).helper("eq",Z,{"block":F},{"value":"opt4"}).helper("eq",Z,{"block":D},{"value":"opt5"}).helper("eq",Z,{"block":B},{"value":"opt5a"}).helper("eq",Z,{"block":u},{"value":"opt6"}).helper("eq",Z,{"block":s},{"value":"opt6-1"}).helper("eq",Z,{"block":q},{"value":"opt6a"}).helper("eq",Z,{"block":o},{"value":"opt6a-1"}).helper("eq",Z,{"block":m},{"value":"opt7"}).helper("eq",Z,{"block":k},{"value":"opt7a"})
+}function G(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.reference(Z.get(["output"],false),Z,"h")
+}function F(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.reference(Z.get(["output"],false),Z,"h")
+}function D(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.reference(Z.get(["output"],false),Z,"h")
+}function B(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.reference(Z.get(["output"],false),Z,"h")
+}function u(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.reference(Z.get(["output"],false),Z,"h")
+}function s(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.reference(Z.get(["output"],false),Z,"h")
+}function q(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.reference(Z.get(["output"],false),Z,"h")
+}function o(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.reference(Z.get(["output"],false),Z,"h")
+}function m(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.reference(Z.get(["output"],false),Z,"h")
+}function k(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.reference(Z.get(["output"],false),Z,"h")
+}function i(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.block(Z.getBlock("isKaty"),Z,{},null)
+}function g(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.block(Z.getBlock("isKaty"),Z,{},null)
+}function e(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.helper("eq",Z,{"block":d},{"value":"1"}).helper("eq",Z,{"block":c},{"value":"2"}).helper("eq",Z,{"block":b},{"value":"3"}).helper("default",Z,{"block":a},null)
+}function d(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.reference(Z.get(["i18n_connection_endorsed_you_1_skill"],false),Z,"h",["et","s"])
+}function c(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.reference(Z.get(["i18n_connections_endorsed_you_2_skill"],false),Z,"h",["et","s"])
+}function b(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.reference(Z.get(["i18n_connections_endorsed_you_3_skill"],false),Z,"h",["et","s"])
+}function a(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.reference(Z.get(["i18n_connections_endorsed_you_n_skill"],false),Z,"h",["et","s"])
+}function X(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.reference(Z.get(["TotalPeopleCount"],false),Z,"h")
+}function W(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.write('<div class="endorsers-collage">').exists(Z.get(["bestProfileImageURL"],false),Z,{"else":V,"block":L},null).write("</div>")
+}function V(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.helper("ne",Z,{"else":U,"block":S},{"key":Z.get(["lix_rejectImmediate"],false),"value":"B"})
+}function U(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.section(Z.get(["Endorsers"],false),Z,{"block":T},null)
+}function T(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.block(Z.getBlock("endorserCollageImage"),Z,{},null)
+}function S(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.section(Z.get(["Endorsers"],false),Z,{"block":R},null)
+}function R(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.helper("lt",Z,{"block":N},{"key":Z.get(["$idx"],false),"value":"4","type":"number"})
+}function N(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.block(Z.getBlock("endorserCollageImage"),Z,{},null)
+}function L(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.write('<span class="stacked-image-placeholder"><span class="stacked-image-placeholder"><img class="photo" src="').reference(Z.get(["bestProfileImageURL"],false),Z,"h").write('" alt=""/></span></span>')
+}function J(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.write('<li class="endorsed-item"><fieldset><span class="item-name">').reference(Z.get(["endorsedItemName"],false),Z,"h").write('</span><button class="remove-item">').reference(Z.get(["i18n_remove_item"],false),Z,"h").write('</button><input type="hidden" value="').reference(Z.get(["endorsedItemName"],false),Z,"h").write('" name="endorsedItemName"/><input type="hidden" value="').reference(Z.get(["endorsedItemType"],false),Z,"h").write('" name="endorsedItemType"/><input type="hidden" value="').reference(Z.get(["endorsementId"],false),Z,"h").write('" name="endorsedEndorsementId"/><input type="hidden" value="').reference(Z.get(["endorserId"],false),Z,"h").write('" name="endorsedEndorserId"/></fieldset></li>')
+}function H(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.write('<li class="pending-list-actions"><a role="button" href="javascript:void(0)" class="undo-action">').reference(Z.get(["i18n_undo"],false),Z,"h").write("</a></li>")
+}function E(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.helper("gt",Z,{"block":C},{"value":"50","type":"number"})
+}function C(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.write('<p class="num-skills-on-profile" removeOneText="').reference(Z.get(["i18n_remove_one"],false),Z,"h").write('">').reference(Z.get(["i18n_remove_p0_skills"],false),Z,"h").write("</p>")
+}function A(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.write('<input type="button" class="btn-secondary skip-action" value="').reference(Z.get(["i18n_skip"],false),Z,"h").write('"/>')
+}function z(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.write('<a role="button" href="javascript:void(0)" class="see-endorsers"><span class="expand-triangle"></span>').reference(Z.get(["i18n_see_endorsers"],false),Z,"h").write("</a>")
+}function y(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.write('<form id="rejected-endorsements" name="rejected-endorsements" method="POST" style="display: none"><div id="rejected-container"></div><input type="hidden" name="locale" value="').reference(Z.getPath(false,["profileLocale","language"]),Z,"h").write("_").reference(Z.getPath(false,["profileLocale","country"]),Z,"h").write('"><input type="hidden" name="defaultLocale" value="').reference(Z.getPath(false,["defaultProfileLocale","language"]),Z,"h").write("_").reference(Z.getPath(false,["defaultProfileLocale","country"]),Z,"h").write('"><input type="hidden" name="timestamp" value="').reference(Z.get(["skillSectionLastEditTimestamp"],false),Z,"h").write('"></form>')
+}function x(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.exists(Z.get(["Endorsers"],false),Z,{"block":w},null)
+}function w(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.write('<div class="endorsers-list-container"><div class="content"><ul class="endorsers-list">').section(Z.get(["Endorsers"],false),Z,{"block":v},null).write("</ul></div></div>")
+}function v(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.write('<li class="endorser ').helper("math",Z,{"block":t},{"key":Z.get(["$idx"],false),"method":"add","operand":"1"}).write('" data-endorser-id="').reference(Z.get(["memberID"],false),Z,"h").write('"><a href="').reference(Z.get(["profileURL"],false),Z,"h").write('"><img class="photo" height="40" width="40" src="').reference(Z.get(["pictureURL"],false),Z,"h").write('" title="').reference(Z.get(["i18n_view_p0_profile"],false),Z,"h",["et","s"]).write('" alt="').reference(Z.get(["i18n_view_p0_profile"],false),Z,"h",["et","s"]).write('"/></a><div class="profile-info"><h4 class="name"><a href="').reference(Z.get(["profileURL"],false),Z,"h").write('">').reference(Z.get(["fullName"],false),Z,"h").write('</a></h4><p class="endorsed-items">').helper("select",Z,{"block":p},{"key":f}).write("</p></div></li>")
+}function t(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.helper("eq",Z,{"block":r},{"value":Z.get(["$len"],false),"type":"number"})
+}function r(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.write("last-endorser")
+}function p(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.helper("eq",Z,{"block":n},{"value":"1"}).helper("eq",Z,{"block":l},{"value":"2"}).helper("eq",Z,{"block":j},{"value":"3"}).helper("default",Z,{"block":h},null)
+}function n(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.reference(Z.get(["firstItemName"],false),Z,"h")
+}function l(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.reference(Z.get(["i18n_endorsed_2_items"],false),Z,"h",["et","s"])
+}function j(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.reference(Z.get(["i18n_endorsed_3_items"],false),Z,"h",["et","s"])
+}function h(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.reference(Z.get(["i18n_endorsed_n_items"],false),Z,"h",["et","s"])
+}function f(aa,Z){Z=Z.shiftBlocks(Y);
+return aa.reference(Z.get(["totalItemCount"],false),Z,"h")
+}return Q
+})();
+(function(){dust.register("pending_endorsement_dialog",dust.cache["tl/apps/profile/endorsements/pending_endorsement_dialog"])
+})();LI.define("EndorseConnectionsSkills");
+LI.EndorseConnectionsSkills=function(ac,N){var af=0,U="guided-edit-promo-profile",q="suggested_member_skill_endorsements_for_multiple_members",Y=false,b=af,f={module:"endorse_connections_skills",list:"_endorse_connections_list"},r,R,Q,J=YAHOO.lang,Z={},m={},g=0,ag,V,h,d,z,H={requestForceOverride:true},I,G,k,c,o,s,t=false,w="blocked",y="blockedAction",K="blockedReason",E="actionLimitExceeded",n="endorsing",X="gettingEndorsementSuggestions";
+N={displayCount:N.displayCount||4,dataURLTemplate:N.dataURLTemplate,acceptURL:N.acceptURL,dismissURL:N.dismissURL,skipDestURL:N.skipDestURL,context:N.context,triggerElement:N.triggerElement||null,templates:N.templates?J.merge(f,N.templates):f,data:N.data||null,randomizationSeed:N.randomizationSeed||Math.floor((Math.random()*1000000)+1),cacheSize:N.cacheSize,impressionURL:N.impressionURL,i18nEndorseLimitExceeded:N.i18nEndorseLimitExceeded,i18nSuggestionsLimitExceeded:N.i18nSuggestionsLimitExceeded};
+function aa(){var ai=N.cacheSize,aj={randomizeSuggestionsSeed:N.randomizationSeed};
+V=N.impressionURL;
+C();
+if(ai&&ai!=="control"){g=parseInt(ai.substring(4),10)||0;
+if(g<=N.displayCount){g=0
+}}if(g){aj.shouldDefer="true"
+}ag=LI.addParams(N.dataURLTemplate,aj);
+if(N.triggerElement){W()
+}else{B()
+}}function B(ai){ab(af,N.displayCount,N.templates["module"],"view",null,function(ak,aj){ac.innerHTML=ak;
+L();
+A();
+if(aj.skills&&aj.skills.length>0){T(aj.skills)
+}if(ai&&typeof ai==="function"){ai()
+}M()
+},null,N.data);
+if(N.data){delete N.data
+}}function W(){var ai=LI.Controls.getControl(N.triggerElement.id,N.triggerElement.jsControlName),aj=ai?ai["openEvent"]:null,ak=ai?ai["closeEvent"]:null;
+if(ai){if(ak){LI.hide(ac);
+ak.subscribe(function(am,al){if(al[0]){h=al[1];
+d=al[2];
+z=al[3];
+if(h==="control"){return
+}if(z){ag=LI.addParams(ag,H)
+}B(function(){YDom.setStyle(ac,"height","");
+YDom.setStyle(ac,"opacity","1");
+LI.show(ac)
+})
+}})
+}if(aj){aj.subscribe(function(am,al){P()
+})
+}}}function ab(aj,at,ao,ap,ar,aq,am,ak){var ai,an={},al;
+al=function(ax){var aw,av,au;
+if(ax&&ax.responseText){aw=ax.responseText[q];
+if(aw.nextOffset===-1){LI.hide(Q);
+LI.hide(R)
+}if(aw.connections&&aw.connections.length>0){av=[];
+LI.each(aw.connections,function(az){var ay=az.memberId+"_"+az.skillId;
+if(!Z[ay]){Z[ay]=true;
+av.push(az)
+}});
+aw.connections=av
+}if(aw.skills&&(typeof aw.skills==="string")){aw.skills=aw.skills.split(",")
+}if(!aw.connections||aw.connections.length===0){if(am&&typeof am==="function"){am();
+M()
+}}else{b=aw.nextOffset;
+aw.displayContext=N.context;
+aw.containsAvailableTasks=!!N.skipDestURL;
+if(h){aw.promoVariant=h;
+aw.viewerEndorseCount=d;
+if(aw.i18n_other_colleagues){aw.i18n_other_colleagues=aw.i18n_other_colleagues.replace("{0}",d)
+}}D(aw);
+dust.render(ao,ax.responseText,function(az,ay){var aA=!ar&&(s||o)?2:undefined;
+if(!az){if(g){S(aw,aA)
+}if(aq&&typeof aq==="function"){aq(ay,aw)
+}}})
+}}else{M()
+}};
+if(Y){return
+}M(ar,"start");
+if(g){if(ak){e(ak)
+}ai=ah(at);
+if(ai){al(ai);
+return
+}}else{if(ak){al(ak);
+return
+}}an.offset=aj;
+an.resultSetSize=g||at;
+an.activityType=ap;
+LI.asyncRequest("GET",LI.addParams(ag,an),{success:function(au){var aw,av;
+if(au){av=au.responseText&&au.responseText[q];
+aw=av&&av[w];
+if(aw&&(aw[K]===E)){if(ar){if(aw[y]===n){a(N.i18nEndorseLimitExceeded);
+F("prof-endrs-multi-limit-endorse")
+}else{if(aw[y]===X){a(N.i18nSuggestionsLimitExceeded);
+F("prof-endrs-multi-limit-suggestions")
+}}}return
+}}if(g){e(au);
+au=ah(at)
+}al(au)
+},custom:{error:ad,exception:ad}})
+}function p(){var ai=window.jQuery;
+return ai&&ai.fn&&ai.fn.Profile&&ai.fn.Profile.startGuidedEditFromEndorsements
+}function l(){var ai=jQuery("#wrapper");
+if(!ai.hasClass(U)){ai.addClass(U)
+}}function j(){var ai=jQuery("#wrapper");
+ai.removeClass(U)
+}function F(ai){if(window.WebTracking){WebTracking.trackUserAction(ai)
+}}function D(aj){var ai=aj&&aj.lix_promo_design,ak=YDom.getAncestorByClassName(ac,"endorse-v2");
+if(!ak&&ai){ai=aj.lix_promo_design="control"
+}k=(!ai||ai==="control")?"multi":ai;
+c="prof-endrs-promo-"+k+"-";
+o=(k==="opt3")||(k==="opt5")||(k==="opt6")||(k==="opt6a")||(k==="opt7");
+s=(k==="opt3a")||(k==="opt5a")||(k==="opt6-1")||(k==="opt6a-1")||(k==="opt7a")
+}function O(){var an=Y$(".hidden-suggestion",ac),aj,al,am=[];
+YDom.addClass(I,"expanded");
+t=true;
+for(var ak=0,ai=an.length;
+ak<ai;
+ak++){aj=an[ak];
+al=Y$(".card-body",aj,true);
+if(al){am.push({signature:al.getAttribute("data-signature")})
+}YDom.removeClass(aj,"hidden-suggestion")
+}S({connections:am})
+}function S(al,ap){var aq=al.connections,am=aq.length,ak=0,an={},ao,aj="signature-";
+if(V&&am){if(ap){am=Math.min(am,ap)
+}for(var ai=0;
+ai<am;
+ai++){ao=aq[ai].signature;
+if(ao){an[aj+ak]=ao;
+ak++
+}}if(ak){an.endorsementCount=ak;
+YAHOO.util.Connect.initHeader("X-IsAJAXForm","1");
+YAHOO.util.Connect.asyncRequest("POST",V,{},LI.addParams("",an,true))
+}}}function C(){m.baseJson=null;
+m.connections=[];
+m.hasMoreData=true
+}function L(){r=Y$(".endorse-all-btn",ac,true);
+R=Y$(".view-more-btn",ac,true);
+Q=Y$(".more-connections",ac,true);
+I=Y$(".endorse-connections",ac,true);
+LI.Controls.parseFragment(ac);
+if(p()){l()
+}YEvent.on(Y$(".close-endorsements"),"click",function(aj){var ai=(YDom.hasClass(YEvent.getTarget(aj),"dialog-close")?"close":"x");
+YEvent.preventDefault(aj);
+F(c+ai);
+P()
+});
+YEvent.on(Y$(".skip-action"),"click",function(ai){YEvent.preventDefault(ai);
+if(N.skipDestURL){F(c+"skip");
+if(p()){P(jQuery.fn.Profile.startGuidedEditFromEndorsements)
+}else{window.location.href=N.skipDestURL
+}}});
+YEvent.on(r,"click",function(ai){YEvent.preventDefault(ai);
+F(c+"all");
+i(Y$(".card",ac),N.acceptURL,function(){b-=N.displayCount;
+ae()
+})
+});
+YEvent.on(R,"click",function(ai){YEvent.preventDefault(ai);
+F(c+"viewmore");
+ae()
+});
+YEvent.on(Q,"click",function(ai){YEvent.preventDefault(ai);
+F(c+"more");
+ae()
+});
+if(s){G=Y$(".expand-btn",ac,true);
+YEvent.on(G,"click",function(ai){F(c+"expand");
+O()
+})
+}YEvent.on(ac,"click",function(ak){var aj=YEvent.getTarget(ak),an=YDom.hasClass(aj,"dismiss-action")||YDom.getAncestorByClassName(aj,"dismiss-action"),am=an?false:YDom.hasClass(aj,"endorse-action")||YDom.getAncestorByClassName(aj,"endorse-action"),ao,ai,al=YDom.getAncestorByClassName(aj,"card");
+if(an||am){YEvent.preventDefault(ak);
+if(o&&!t){F(c+"expand-onclick");
+O()
+}if(an){ai=N.dismissURL;
+ao="skip"
+}else{ai=N.acceptURL;
+ao="endorse"
+}F(c+ao);
+i(al,ai,function(){b-=1;
+u(al)
+})
+}else{if(o&&!t&&al&&!YDom.hasClass(aj,"profile-photo")){F(c+"expand-onclick");
+O()
+}}});
+if(N.triggerElement){window.setTimeout(x,0)
+}}function ae(){var aj=Y$(".connections-list-container",ac,true),al=Y$(".connections",aj,true),ai=Y$("li.card",al),ak=aj.clientHeight;
+ab(b,N.displayCount,f["list"],"click",ai,function(am){var an=new YAnim(al,{"margin-top":{from:0,to:ak*-1},"opacity":{to:0}},0.5);
+YDom.setStyle(aj,"height",ak+"px");
+aj.appendChild(LI.domify(am));
+an.onComplete.subscribe(function(){YDom.removeClass(ai,"in-progress");
+aj.removeChild(al);
+YDom.setStyle(aj,"height","auto");
+A();
+M();
+x()
+});
+an.animate()
+},function(){P()
+})
+}function u(al){var ak=Y$(".card-body",al,true);
+function aj(){var am=al.parentNode;
+am.removeChild(al);
+if(Y$(".card",am,true)===null){P()
+}else{ai(am);
+A()
+}x()
+}function ai(ap){var aq=Y$(".card",ap),ao;
+for(var an=0,am=aq.length;
+an<am;
+an++){ao=(an+1)%2?YDom.removeClass:YDom.addClass;
+ao(aq[an],"last-in-row")
+}}if(b<0){aj();
+return
+}ab(b,1,f["list"],"click",al,function(an){var am=Y$(".card-body",LI.domify(an),true),ao=new YAnim(ak,{"opacity":{to:0}},0.5);
+YDom.setStyle(ak,"position","absolute");
+al.appendChild(am);
+YDom.removeClass(al,"in-progress");
+ao.onComplete.subscribe(function(){al.removeChild(ak);
+M();
+Y$(".endorse-action",am,true).focus()
+});
+ao.animate()
+},aj)
+}function i(al,an,aj){var ak,ai=[];
+if(Y){return
+}function am(ao){var aq,ap;
+if(ao){ap=(ao.responseText)?ao.responseText[q]:ao;
+aq=(ap&&ap[w])?ap[w]:ap;
+if(aq&&(aq[K]===E)&&(aq[y]===n)){a(N.i18nEndorseLimitExceeded);
+F("prof-endrs-multi-limit-endorse");
+return
+}}M(al);
+if(aj&&typeof aj==="function"){aj()
+}}al=J.isArray(al)?al:[al];
+LI.each(al,function(ao){ai.push(Y$(".card-body",ao,true))
+});
+ak=v(ai);
+M(al,"start");
+LI.asyncRequest("POST",an,{success:am,custom:{error:am,exception:ad}},ak)
+}function M(aj,ak){var ai;
+Y=(ak==="start");
+aj=aj||Y$(".in-progress",ac);
+ai=Y?YDom.addClass:YDom.removeClass;
+ai(aj,"in-progress")
+}function v(am){var ak=[],ap,aj,ao;
+for(var an=0,ai=am.length;
+an<ai;
+an++){aj=LI.getDataSet(am[an],true);
+for(var al in aj){if(al&&J.hasOwnProperty(aj,al)){ao=al.indexOf("li-")===0?al.slice(3):al;
+ak.push(ao+"-"+an+"="+encodeURIComponent(aj[al]))
+}}}ak.push("endorsementCount="+ai);
+return ak.join("&")
+}function T(aj){function at(ay){var ax=YDom.getRegion(ay).height,az=parseInt(YDom.getStyle(ay,"margin-top"),10),aA=parseInt(YDom.getStyle(ay,"margin-bottom"),10);
+if(!isNaN(ax)&&!isNaN(az)){ax+=az
+}if(!isNaN(ax)&&!isNaN(aA)){ax+=aA
+}return isNaN(ax)?0:ax
+}var am,av,ap=0,ak=aj.length,aw=Y$(".endorsed-item")[0],an=Y$(".endorsed-skills-list")[0],ar=Y$(".endorsed-skills-list .endorsed-item.scroll-to-skills-section")[0],au=Y$(".endorsed-skills-list .endorsed-item.scroll-to-skills-section .hidden-skills-count")[0],aq=Y$(".endorsed-skills-list .endorsed-item:not(.endorsed-item.scroll-to-skills-section)"),ai=at(aw),ao=((2*ai)+(ai/2)).toFixed();
+if(ao!==0){if(parseInt(YDom.getComputedStyle(an,"height"),10)>ao){YDom.setStyle(ar,"display","block");
+while(parseInt(YDom.getComputedStyle(an,"height"),10)>ao){av=aq.pop();
+av.parentNode.removeChild(av);
+ap++;
+au.innerHTML=ap+"+"
+}YEvent.on(ar,"click",function(){LI.scrollWindow(document.getElementById("profile-skills"),function(){},0.5,0,-90)
+})
+}}YDom.setStyle(an,"visibility","visible");
+for(var al=0;
+al<ak;
+al++){am=YUtil.Lang.trim(aj[al]);
+YDom.addClass(Y$('#profile-skills .endorse-item[data-endorsed-item-name="'+am+'"] .endorse-item-name')[0],"highlight")
+}}function A(){if(r){var aj=Y$(".card",ac).length,ai=(aj===1)?r.getAttribute("data-label-one"):r.getAttribute("data-label-all").replace(/[0-9]+/,aj);
+r.innerHTML=ai
+}}function P(ai){Z={};
+C();
+if(p()){j()
+}LI.fade(ac,ai);
+if(Y$(".endorse-connections-dialog",ac).length){LI.Dialog().close()
+}}function ad(){M();
+P();
+return false
+}function e(ai){var aj=ai.responseText[q];
+m.baseJson=ai;
+m.connections.push.apply(m.connections,aj.connections);
+m.hasMoreData=(aj.nextOffset!==-1)
+}function ah(ak){var aj=m.connections,ai=m.baseJson,al=ai&&ai.responseText[q];
+if(!ak||(aj.length<ak&&m.hasMoreData)){return null
+}if(!m.hasMoreData){if(aj.length<=ak){al.nextOffset=-1
+}else{al.nextOffset=1
+}}al.connections=aj.splice(0,ak);
+return ai
+}function x(){var ai=Y$(".card:first-child .endorse-action",ac,true);
+if(ai){ai.focus()
+}}function a(ai){if(ai){if(LI.GlobalAlertManager){LI.injectAlert({type:"error",message:ai,dismissable:true})
+}else{LI.injectAlert(ai,"error",null,false,true)
+}P()
+}}aa()
+};(function(){dust.register("tl/apps/profile/endorsements/endorse_connections_skills",S);
+var aa={"close_button":O,"promo_variant":M,"view_more":F,"see_more":w,"expand_btn":s,"katified":o};
+function S(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.section(ab.get(["suggested_member_skill_endorsements_for_multiple_members"],false),ab,{"block":R},null)
+}function R(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.exists(ab.get(["endorseeFirstName"],false),ab,{"block":Q},null).write('<div class="endorse-connections').block(ab.getBlock("promo_variant"),ab,{},null).write('"><a href="javascript:void(0)" role="button" class="close-action').block(ab.getBlock("katified"),ab,{},null).write(' close-endorsements" title="').reference(ab.get(["i18n_close"],false),ab,"h").write('"><span aria-hidden="true" class="close-glyph"></span><span class="close-text">').reference(ab.get(["i18n_close"],false),ab,"h").write('</span></a><h3 class="endorse-connection-title ').exists(ab.get(["displayContext"],false),ab,{"block":f},null).write('">').helper("select",ab,{"block":b},{"key":ab.get(["displayContext"],false)}).write("</h3>").exists(ab.get(["skills"],false),ab,{"block":L},null).write('<div class="connections-list-container">').partial("tl/apps/profile/endorsements/_endorse_connections_list",ab,{"checkHidden":"true"}).write('</div><div class="endorse-actions-wrapper">').helper("eq",ab,{"else":J,"block":C},{"key":ab.get(["lix_promo_cta"],false),"value":"B"}).helper("eq",ab,{"else":x,"block":v},{"key":ab.get(["displayContext"],false),"value":"accepting"}).helper("select",ab,{"block":p},{"key":ab.get(["lix_promo_design"],false)}).write("</div></div>").helper("jsControl",ab,{"block":d},{"name":"BalloonCalloutDelegator"}).write('<div id="tooltip-endorse-skill" class="callout-container"><div class="callout-content">__PLACEHOLDER__</div></div>')
+}function Q(ac,ab){ab=ab.shiftBlocks(aa);
+return ac
+}function O(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.write('<button type="button" class="btn-secondary close-endorsements dialog-close">').reference(ab.get(["i18n_close"],false),ab,"h").write("</button>")
+}function M(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.helper("ne",ab,{"block":K},{"key":ab.get(["lix_promo_design"],false),"value":"control"})
+}function K(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.helper("eq",ab,{"else":I,"block":H},{"key":ab.get(["lix_promo_design"],false),"value":"B"})
+}function I(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.write(" promo-").reference(ab.get(["lix_promo_design"],false),ab,"h")
+}function H(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.write(" promo-v3")
+}function F(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.helper("ne",ab,{"block":D},{"key":ab.get(["nextOffset"],false),"value":"-1","type":"number"})
+}function D(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.write('<button type="button" class="view-more-btn btn-action">').reference(ab.get(["i18n_view_more"],false),ab,"h").write("</button>")
+}function w(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.helper("ne",ab,{"block":u},{"key":ab.get(["nextOffset"],false),"value":"-1","type":"number"})
+}function u(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.write('<a href="javascript:void(0)" role="button" class="more-connections">').reference(ab.get(["i18n_see_more_connections"],false),ab,"h").write("</a>")
+}function s(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.helper("ne",ab,{"block":q},{"key":ab.get(["nextOffset"],false),"value":"-1","type":"number"})
+}function q(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.write('<button type="button" class="expand-btn">').reference(ab.get(["i18n_expand"],false),ab,"h").write("</button>")
+}function o(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.helper("ne",ab,{"block":m},{"key":ab.get(["lix_promo_design"],false),"value":"control"})
+}function m(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.helper("ne",ab,{"block":k},{"key":ab.get(["lix_promo_design"],false),"value":"opt1a"})
+}function k(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.helper("ne",ab,{"block":i},{"key":ab.get(["lix_promo_design"],false),"value":"opt3"})
+}function i(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.helper("ne",ab,{"block":g},{"key":ab.get(["lix_promo_design"],false),"value":"opt3a"})
+}function g(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.write("-katy")
+}function f(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.notexists(ab.get(["skills"],false),ab,{"block":c},null)
+}function c(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.write("post-success")
+}function b(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.helper("eq",ab,{"block":a},{"value":"endorsing"}).helper("eq",ab,{"block":P},{"value":"accepting"}).helper("eq",ab,{"block":N},{"value":"nus"})
+}function a(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.exists(ab.get(["skills"],false),ab,{"else":Z,"block":T},null)
+}function Z(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.notexists(ab.get(["promoVariant"],false),ab,{"else":Y,"block":U},null)
+}function Y(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.helper("select",ab,{"block":X},{"key":ab.get(["promoVariant"],false)})
+}function X(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.helper("eq",ab,{"block":W},{"value":"multi"}).helper("default",ab,{"block":V},null)
+}function W(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.reference(ab.get(["i18n_other_colleagues"],false),ab,"h",["et","s"])
+}function V(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.reference(ab.get(["i18n_title_from_endorsing"],false),ab,"h",["et","s"])
+}function U(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.reference(ab.get(["i18n_title_from_endorsing"],false),ab,"h")
+}function T(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.reference(ab.get(["i18n_title_from_endorsed_skills_email"],false),ab,"h")
+}function P(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.reference(ab.get(["i18n_title_from_accepting"],false),ab,"h")
+}function N(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.reference(ab.get(["i18n_title_from_nus_feed"],false),ab,"h")
+}function L(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.write('<div class="endorsed-skills-list-container">').partial("tl/apps/profile/endorsements/_endorsed_skills_list",ab,null).write("</div>")
+}function J(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.block(ab.getBlock("see_more"),ab,{},null).write('<button type="button" class="btn-action endorse-all-btn" data-label-all="').reference(ab.get(["i18n_endorse_all_p0"],false),ab,"h").write('" data-label-one="').reference(ab.get(["i18n_endorse"],false),ab,"h").write('">').helper("eq",ab,{"else":G,"block":E},{"key":ab.get(["displayCount"],false),"value":"1","type":"number"}).write("</button>")
+}function G(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.reference(ab.get(["i18n_endorse_all_p0"],false),ab,"h")
+}function E(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.reference(ab.get(["i18n_endorse"],false),ab,"h")
+}function C(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.helper("ne",ab,{"block":B},{"key":ab.get(["lix_promo_design"],false),"value":"control"}).write(" ").block(ab.getBlock("view_more"),ab,{},null)
+}function B(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.helper("ne",ab,{"block":A},{"key":ab.get(["lix_promo_design"],false),"value":"B"})
+}function A(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.helper("ne",ab,{"block":z},{"key":ab.get(["lix_promo_design"],false),"value":"opt1"})
+}function z(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.helper("ne",ab,{"block":y},{"key":ab.get(["lix_promo_design"],false),"value":"opt4"})
+}function y(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.block(ab.getBlock("see_more"),ab,{},null)
+}function x(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.block(ab.getBlock("close_button"),ab,{},null)
+}function v(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.helper("eq",ab,{"else":t,"block":r},{"key":ab.get(["containsAvailableTasks"],false),"value":"true"})
+}function t(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.block(ab.getBlock("close_button"),ab,{},null)
+}function r(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.write('<button type="button" class="btn-secondary skip-action">').reference(ab.get(["i18n_skip"],false),ab,"h").write("</button>")
+}function p(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.helper("eq",ab,{"block":n},{"value":"opt3a"}).helper("eq",ab,{"block":l},{"value":"opt5a"}).helper("eq",ab,{"block":j},{"value":"opt6-1"}).helper("eq",ab,{"block":h},{"value":"opt6a-1"}).helper("eq",ab,{"block":e},{"value":"opt7a"})
+}function n(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.block(ab.getBlock("expand_btn"),ab,{},null)
+}function l(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.block(ab.getBlock("expand_btn"),ab,{},null)
+}function j(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.block(ab.getBlock("expand_btn"),ab,{},null)
+}function h(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.block(ab.getBlock("expand_btn"),ab,{},null)
+}function e(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.block(ab.getBlock("expand_btn"),ab,{},null)
+}function d(ac,ab){ab=ab.shiftBlocks(aa);
+return ac.write("{width: 'auto',id:'tooltip-endorse-skill',orientation: 'top-left',type: 'tooltip-callout',cacheCalloutContent: true,delayOpen: true,toolTipTextAttr: 'title',offsetY: -10,offsetX: -70}")
+}return S
+})();
+(function(){dust.register("endorse_connections_skills",dust.cache["tl/apps/profile/endorsements/endorse_connections_skills"])
+})();(function(){dust.register("tl/apps/profile/endorsements/_endorse_connections_list",H);
+var P={"hidden_item":F,"endorse_button":N,"endorse_link_plus":M,"suggestion_actions":L};
+function H(R,Q){Q=Q.shiftBlocks(P);
+return R.section(Q.get(["suggested_member_skill_endorsements_for_multiple_members"],false),Q,{"block":G},null)
+}function G(R,Q){Q=Q.shiftBlocks(P);
+return R.write('<ul class="connections">').section(Q.get(["connections"],false),Q,{"block":K},null).write("</ul>")
+}function F(R,Q){Q=Q.shiftBlocks(P);
+return R.helper("select",Q,{"block":D},{"key":Q.get(["lix_promo_design"],false)})
+}function D(R,Q){Q=Q.shiftBlocks(P);
+return R.helper("eq",Q,{"block":B},{"value":"opt3"}).helper("eq",Q,{"block":x},{"value":"opt3a"}).helper("eq",Q,{"block":u},{"value":"opt5"}).helper("eq",Q,{"block":m},{"value":"opt5a"}).helper("eq",Q,{"block":k},{"value":"opt6"}).helper("eq",Q,{"block":i},{"value":"opt6-1"}).helper("eq",Q,{"block":g},{"value":"opt6a"}).helper("eq",Q,{"block":e},{"value":"opt6a-1"}).helper("eq",Q,{"block":c},{"value":"opt7"}).helper("eq",Q,{"block":a},{"value":"opt7a"})
+}function B(R,Q){Q=Q.shiftBlocks(P);
+return R.helper("gt",Q,{"block":z},{"key":Q.get(["$idx"],false),"value":"1"})
+}function z(R,Q){Q=Q.shiftBlocks(P);
+return R.write(" hidden-suggestion")
+}function x(R,Q){Q=Q.shiftBlocks(P);
+return R.helper("gt",Q,{"block":w},{"key":Q.get(["$idx"],false),"value":"1"})
+}function w(R,Q){Q=Q.shiftBlocks(P);
+return R.write(" hidden-suggestion")
+}function u(R,Q){Q=Q.shiftBlocks(P);
+return R.helper("gt",Q,{"block":s},{"key":Q.get(["$idx"],false),"value":"1"})
+}function s(R,Q){Q=Q.shiftBlocks(P);
+return R.write(" hidden-suggestion")
+}function m(R,Q){Q=Q.shiftBlocks(P);
+return R.helper("gt",Q,{"block":l},{"key":Q.get(["$idx"],false),"value":"1"})
+}function l(R,Q){Q=Q.shiftBlocks(P);
+return R.write(" hidden-suggestion")
+}function k(R,Q){Q=Q.shiftBlocks(P);
+return R.helper("gt",Q,{"block":j},{"key":Q.get(["$idx"],false),"value":"1"})
+}function j(R,Q){Q=Q.shiftBlocks(P);
+return R.write(" hidden-suggestion")
+}function i(R,Q){Q=Q.shiftBlocks(P);
+return R.helper("gt",Q,{"block":h},{"key":Q.get(["$idx"],false),"value":"1"})
+}function h(R,Q){Q=Q.shiftBlocks(P);
+return R.write(" hidden-suggestion")
+}function g(R,Q){Q=Q.shiftBlocks(P);
+return R.helper("gt",Q,{"block":f},{"key":Q.get(["$idx"],false),"value":"1"})
+}function f(R,Q){Q=Q.shiftBlocks(P);
+return R.write(" hidden-suggestion")
+}function e(R,Q){Q=Q.shiftBlocks(P);
+return R.helper("gt",Q,{"block":d},{"key":Q.get(["$idx"],false),"value":"1"})
+}function d(R,Q){Q=Q.shiftBlocks(P);
+return R.write(" hidden-suggestion")
+}function c(R,Q){Q=Q.shiftBlocks(P);
+return R.helper("gt",Q,{"block":b},{"key":Q.get(["$idx"],false),"value":"1"})
+}function b(R,Q){Q=Q.shiftBlocks(P);
+return R.write(" hidden-suggestion")
+}function a(R,Q){Q=Q.shiftBlocks(P);
+return R.helper("gt",Q,{"block":O},{"key":Q.get(["$idx"],false),"value":"1"})
+}function O(R,Q){Q=Q.shiftBlocks(P);
+return R.write(" hidden-suggestion")
+}function N(R,Q){Q=Q.shiftBlocks(P);
+return R.write('<button class="endorse-action action-endorse btn-ternary"><strong class="endorse-btn-text">').reference(Q.get(["i18n_endorse_a11y_p0_for_p1"],false),Q,"h",["mk","s"]).write("</strong></button>")
+}function M(R,Q){Q=Q.shiftBlocks(P);
+return R.write('<button class="endorse-action endorse-link"><span aria-hidden="true" class="endorse-glyph"></span><strong>').reference(Q.get(["i18n_endorse"],false),Q,"h").write("</strong></button>")
+}function L(R,Q){Q=Q.shiftBlocks(P);
+return R.write('<div class="suggestion-actions"><button class="endorse-action sugg-endorse-action"><strong class="endorse-btn-text">').reference(Q.get(["i18n_endorse"],false),Q,"h").write('</strong></button><div class="btn-separator"></div><button class="dismiss-action sugg-dismiss-action"><strong>').reference(Q.get(["i18n_next"],false),Q,"h",["et","s"]).write("</strong></button></div>")
+}function K(R,Q){Q=Q.shiftBlocks(P);
+return R.write('<li class="card ').helper("math",Q,{"block":J},{"key":Q.get(["$idx"],false),"method":"mod","operand":"2"}).exists(Q.get(["checkHidden"],false),Q,{"block":E},null).write('"><div class="card-body" data-recipient-type="').reference(Q.get(["recipientType"],false),Q,"h").write('" data-endorsed-item-id="').reference(Q.get(["skillId"],false),Q,"h").write('" data-endorsed-item-name="').reference(Q.get(["skillName"],false),Q,"h").write('" data-endorsed-item-type="').reference(Q.get(["endorsedItemType"],false),Q,"h").write('" ').exists(Q.get(["signature"],false),Q,{"block":C},null).write('><div class="card-body-left"><a class="endorser-photo" href="').reference(Q.get(["profileURL"],false),Q,"h",["s"]).write('" title="').reference(Q.get(["i18n_view_p0_profile"],false),Q,"h",["et","s"]).write('">').exists(Q.get(["pictureId"],false),Q,{"else":A,"block":y},null).write("</a>").block(Q.getBlock("endorse_button"),Q,{},null).write(' </div><p class="endorse-question">').helper("select",Q,{"block":v},{"key":Q.get(["lix_promo_design"],false)}).write("</p>").block(Q.getBlock("endorse_link_plus"),Q,{},null).write(' <a class="dismiss-action dismiss-connection" href="javascript:void(0)" role="button" title="').reference(Q.get(["i18n_dismiss"],false),Q,"h").write('">').reference(Q.get(["i18n_dismiss"],false),Q,"h").write("</a>").helper("select",Q,{"block":p},{"key":Q.get(["lix_promo_design"],false)}).write('</div><div class="progress-indicator"/></li>')
+}function J(R,Q){Q=Q.shiftBlocks(P);
+return R.helper("eq",Q,{"block":I},{"value":"1","type":"number"})
+}function I(R,Q){Q=Q.shiftBlocks(P);
+return R.write("last-in-row")
+}function E(R,Q){Q=Q.shiftBlocks(P);
+return R.block(Q.getBlock("hidden_item"),Q,{},null)
+}function C(R,Q){Q=Q.shiftBlocks(P);
+return R.write('data-signature="').reference(Q.get(["signature"],false),Q,"h").write('"')
+}function A(R,Q){Q=Q.shiftBlocks(P);
+return R.write('<img class="profile-photo" width="100" height="100" alt="').reference(Q.get(["fullName"],false),Q,"h").write('" src="').reference(Q.get(["ghost_person_img_link"],false),Q,"h").write('" />')
+}function y(R,Q){Q=Q.shiftBlocks(P);
+return R.write('<img class="profile-photo" width="100" height="100" alt="').reference(Q.get(["fullName"],false),Q,"h").write("\" src='").reference(Q.get(["linkAuto_media_1"],false),Q,"h",["s"]).write("' />")
+}function v(R,Q){Q=Q.shiftBlocks(P);
+return R.helper("eq",Q,{"block":t},{"value":"opt6a"}).helper("eq",Q,{"block":r},{"value":"opt6a-1"}).helper("default",Q,{"block":q},null)
+}function t(R,Q){Q=Q.shiftBlocks(P);
+return R.reference(Q.get(["i18n_does_p0_for_p1"],false),Q,"h",["mk","s"])
+}function r(R,Q){Q=Q.shiftBlocks(P);
+return R.reference(Q.get(["i18n_does_p0_for_p1"],false),Q,"h",["mk","s"])
+}function q(R,Q){Q=Q.shiftBlocks(P);
+return R.reference(Q.get(["i18n_does_p0_know_p1"],false),Q,"h",["mk","s"])
+}function p(R,Q){Q=Q.shiftBlocks(P);
+return R.helper("eq",Q,{"block":o},{"value":"opt7"}).helper("eq",Q,{"block":n},{"value":"opt7a"})
+}function o(R,Q){Q=Q.shiftBlocks(P);
+return R.block(Q.getBlock("suggestion_actions"),Q,{},null)
+}function n(R,Q){Q=Q.shiftBlocks(P);
+return R.block(Q.getBlock("suggestion_actions"),Q,{},null)
+}return H
+})();
+(function(){dust.register("_endorse_connections_list",dust.cache["tl/apps/profile/endorsements/_endorse_connections_list"])
+})();(function(){dust.register("tl/apps/profile/endorsements/_endorsed_skills_list",e);
+function e(i,h){return i.write('<ul class="endorsed-skills-list">').section(h.get(["skills"],false),h,{"block":d},null).write('<li class="endorsed-item scroll-to-skills-section"><div>').reference(h.get(["i18n_see_more_endorsed_skills"],false),h,"h").write(' <span class="hidden-skills-count"></span></div><div class="').helper("eq",h,{"else":c,"block":b},{"key":a,"value":"2"}).write('">&raquo;</div></li></ul><span class="endorsed-skills-subtitle">').helper("eq",h,{"else":g,"block":f},{"key":h.get(["lix_promo_design"],false),"value":"control"}).write("</span>")
+}function d(i,h){return i.write('<li class="endorsed-item"><span class="item-name">').reference(h.getPath(true,[]),h,"h").write("</span></li>")
+}function c(i,h){return i.write("see-more-raquo")
+}function b(i,h){return i.write("see-more-arrow")
+}function a(i,h){return i.reference(h.get(["version"],false),h,"h")
+}function g(i,h){return i.reference(h.get(["i18n_endorse_your_conn"],false),h,"h")
+}function f(i,h){return i.reference(h.get(["i18n_pay_it_forward"],false),h,"h")
+}return e
+})();
+(function(){dust.register("_endorsed_skills_list",dust.cache["tl/apps/profile/endorsements/_endorsed_skills_list"])
+})();(function(){dust.register("tl/apps/profile/endorsements/endorser_Info_dialog",n);
+function n(r,q){return r.section(q.get(["endorser_info_dialog"],false),q,{"block":l},null)
+}function l(r,q){return r.write('<div class="endorsers-dialog-content').helper("eq",q,{"block":j},{"key":q.get(["lix_profileSectionSkillsJquery"],false),"value":"enabled"}).write('">').exists(q.get(["endorsers"],false),q,{"else":h,"block":f},null).write("</div>")
+}function j(r,q){return r.write(" jquery-dialog")
+}function h(r,q){return r.write('<div class="dialog-message alert error"><p>').reference(q.get(["i18n_no_data"],false),q,"h").write("</p></div>")
+}function f(r,q){return r.write('<div class="subtitle">').exists(q.get(["isSelf"],false),q,{"else":e,"block":b},null).write('</div><ul class="endorsers-list ').exists(q.get(["isSelf"],false),q,{"block":a},null).write('">').section(q.get(["endorsers"],false),q,{"block":p},null).write("</ul>")
+}function e(r,q){return r.exists(q.get(["fmt__recipientFamiliarName"],false),q,{"else":d,"block":c},null)
+}function d(r,q){return r.reference(q.get(["i18n__endorsement_without_name"],false),q,"h",["mk","s"])
+}function c(r,q){return r.reference(q.get(["i18n__endorsement_with_name"],false),q,"h",["mk","s"])
+}function b(r,q){return r.reference(q.get(["i18n__endorsement_you"],false),q,"h",["mk","s"])
+}function a(r,q){return r.write("toggle-visibility")
+}function p(r,q){return r.write('<li class="endorser-summary ').exists(q.get(["isHidden"],false),q,{"block":o},null).write(" ").helper("sep",q,{"block":m},null).write("\"><a href='").reference(q.get(["linkViewProfile"],false),q,"h").write("' class=\"view-profile\" title='").reference(q.get(["i18n_view_profile"],false),q,"h").write("'>").exists(q.get(["pictureID"],false),q,{"else":k,"block":i},null).write('</a><div class="endorser-info"><h3 class="endorser-name"><a href=\'').reference(q.get(["linkViewProfile"],false),q,"h").write("' title='").reference(q.get(["i18n_view_profile"],false),q,"h").write("'>").reference(q.get(["fullName"],false),q,"h").write("</a>").helper("partial",q,{"block":g},{"fNameP":q.get(["firstName"],false),"lNameP":q.get(["lastName"],false),"distanceP":q.get(["distance"],false)}).write('</h3><p class="endorser-headline">').reference(q.get(["headline"],false),q,"h").write('</p><p class="endorser-location">').reference(q.get(["locationString"],false),q,"h").write("</p></div></li>")
+}function o(r,q){return r.write("endorsement-hidden")
+}function m(r,q){return r.write("separated")
+}function k(r,q){return r.write('<img class="endorser-photo" width="65" height="65" alt="').reference(q.get(["fullName"],false),q,"h").write("\" src='").reference(q.get(["imgAuto_2"],false),q,"h",["s"]).write("'>")
+}function i(r,q){return r.write('<img class="endorser-photo" width="65" height="65" alt="').reference(q.get(["fullName"],false),q,"h").write("\" src='").reference(q.get(["linkAuto_media_1"],false),q,"h",["s"]).write("' />")
+}function g(r,q){return r.partial("tl/shared/degree_icon",q,null)
+}return n
+})();
+(function(){dust.register("endorser_Info_dialog",dust.cache["tl/apps/profile/endorsements/endorser_Info_dialog"])
+})();

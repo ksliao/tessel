@@ -1,0 +1,204 @@
+(function(){dust.register("tl/apps/profile/v2/embed/dialog",c);
+function c(e,d){return e.write('<div class="profile-dialog"><div class="my-dialog-content"><h3>').reference(d.get(["message"],false),d,"h").write("</h3>").exists(d.get(["message2"],false),d,{"block":b},null).write('</div><p class="dialog-actions"><button class="btn-primary dialog-submit dialog-submit-suppress">').reference(d.get(["submitButton"],false),d,"h").write("</button>").exists(d.get(["showProgress"],false),d,{"block":a},null).write('<button class="btn-secondary dialog-close">').reference(d.get(["cancelButton"],false),d,"h").write("</button></p></div>")
+}function b(e,d){return e.write("<h4>").reference(d.get(["message2"],false),d,"h").write("</h4>")
+}function a(e,d){return e.write('<span class="progress-indicator"></span>')
+}return c
+})();
+(function(){dust.register("dialog",dust.cache["tl/apps/profile/v2/embed/dialog"])
+})();(function(){dust.register("tl/apps/profile/v2/partial/actions",c);
+function c(e,d){return e.helper("param",d,{},{"key":"trackCancel","defaultVal":""}).helper("param",d,{},{"key":"trackSave","defaultVal":""}).write('<p class="actions"><input class="btn-primary" name="submit" type="submit" value=\'').reference(d.get(["i18n__Save"],false),d,"h").write("'").exists(d.get(["trackSave"],false),d,{"block":b},null).write('><button class="btn-secondary btn-cancel" type="button"').exists(d.get(["trackCancel"],false),d,{"block":a},null).write(">").reference(d.get(["i18n__Cancel"],false),d,"h").write("</button></p>")
+}function b(e,d){return e.write(" data-trk='").reference(d.get(["trackSave"],false),d,"h").write("'")
+}function a(e,d){return e.write(" data-trk='").reference(d.get(["trackCancel"],false),d,"h").write("'")
+}return c
+})();
+(function(){dust.register("actions",dust.cache["tl/apps/profile/v2/partial/actions"])
+})();(function(){dust.register("tl/shared/js-control/checktextarea",a);
+function a(c,b){return c.write("<script type=\"text/javascript\">LI.i18n.register( 'CheckTextarea-full', '").reference(b.get(["ch_full"],false),b,"h",["s","j"]).write("' );LI.i18n.register( 'CheckTextarea-error', '").reference(b.get(["ch_error"],false),b,"h",["s","j"]).write("' );LI.i18n.register( 'CheckTextarea-empty', '").reference(b.get(["ch_empty"],false),b,"h",["s","j"]).write("' );LI.i18n.register( 'CheckTextarea-countdown', '").reference(b.get(["ch_ctd"],false),b,"h",["s","j"]).write("' );LI.i18n.register( 'CheckTextarea-countdown-file-sharing', '").reference(b.get(["ch_ctd_fs"],false),b,"h",["s","j"]).write("' );LI.i18n.register( 'CheckTextarea-twitter-under', '").reference(b.get(["ch_twit_under"],false),b,"h",["s","j"]).write("' );LI.i18n.register( 'CheckTextarea-twitter-over', '").reference(b.get(["ch_twit_over"],false),b,"h",["s","j"]).write("' );LI.i18n.register( 'CheckTextarea-twitter-over-file-sharing', '").reference(b.get(["ch_twit_over_fs"],false),b,"h",["s","j"]).write("' );<\/script>")
+}return a
+})();
+(function(){dust.register("checktextarea",dust.cache["tl/shared/js-control/checktextarea"])
+})();(function(){dust.register("tl/shared/degree_icon_base",e);
+function e(g,f){return g.write('<abbr aria-hidden="true" title="').exists(f.get(["title"],false),f,{"else":d,"block":b},null).write('" class="degree-icon ').block(f.getBlock("customStyle"),f,{},null).write('">').block(f.getBlock("iconTxt"),f,{"block":a},null).write("</abbr>")
+}function d(g,f){return g.block(f.getBlock("distanceStr"),f,{"block":c},null)
+}function c(g,f){return g.reference(f.get(["degree_icon_base__text_plain__formatted_name"],false),f,"h")
+}function b(g,f){return g.reference(f.get(["title"],false),f,"h")
+}function a(g,f){return g.reference(f.get(["distanceP"],false),f,"h").reference(f.get(["degree_icon_base__text_plain__degree_icon_symbol"],false),f,"h",["et","s"])
+}return e
+})();
+(function(){dust.register("degree_icon_base",dust.cache["tl/shared/degree_icon_base"])
+})();(function(){dust.register("tl/shared/degree_icon",b);
+function b(d,c){return d.helper("param",c,{},{"key":"fNameP","defaultVal":""}).helper("param",c,{},{"key":"lNameP","defaultVal":""}).helper("param",c,{},{"key":"title","defaultVal":""}).helper("param",c,{},{"key":"distanceP","defaultVal":"-1"}).partial(a,c,null)
+}function a(d,c){return d.write("tl/shared/degree_icon_").reference(c.get(["distanceP"],false),c,"h")
+}return b
+})();
+(function(){dust.register("degree_icon",dust.cache["tl/shared/degree_icon"])
+})();(function(){dust.register("tl/shared/degree_icon_-1",a);
+function a(c,b){return c
+}return a
+})();
+(function(){dust.register("degree_icon_-1",dust.cache["tl/shared/degree_icon_-1"])
+})();(function(){dust.register("tl/shared/degree_icon_0",c);
+var d={"distanceStr":b,"iconTxt":a};
+function c(f,e){e=e.shiftBlocks(d);
+return f.partial("tl/shared/degree_icon_base",e,null)
+}function b(f,e){e=e.shiftBlocks(d);
+return f.reference(e.get(["degree_icon_0__text_plain__you_distance_str_key"],false),e,"h")
+}function a(f,e){e=e.shiftBlocks(d);
+return f.reference(e.get(["degree_icon_0__text_plain__you_icon_txt_key"],false),e,"h")
+}return c
+})();
+(function(){dust.register("degree_icon_0",dust.cache["tl/shared/degree_icon_0"])
+})();(function(){dust.register("tl/shared/degree_icon_1",c);
+var d={"distanceStr":b,"iconTxt":a};
+function c(f,e){e=e.shiftBlocks(d);
+return f.partial("tl/shared/degree_icon_base",e,null)
+}function b(f,e){e=e.shiftBlocks(d);
+return f.reference(e.get(["degree_icon_1__text_plain__NAME_is_your_connection"],false),e,"h",["et","s"])
+}function a(f,e){e=e.shiftBlocks(d);
+return f.reference(e.get(["degree_icon_1__text_plain__1st"],false),e,"h",["mk","s"])
+}return c
+})();
+(function(){dust.register("degree_icon_1",dust.cache["tl/shared/degree_icon_1"])
+})();(function(){dust.register("tl/shared/degree_icon_2",c);
+var d={"distanceStr":b,"iconTxt":a};
+function c(f,e){e=e.shiftBlocks(d);
+return f.partial("tl/shared/degree_icon_base",e,null)
+}function b(f,e){e=e.shiftBlocks(d);
+return f.reference(e.get(["degree_icon_2__text_plain__NAME_is_2nd_degree_contact_key"],false),e,"h",["et","s"])
+}function a(f,e){e=e.shiftBlocks(d);
+return f.reference(e.get(["degree_icon_2__text_plain__2nd"],false),e,"h",["mk","s"])
+}return c
+})();
+(function(){dust.register("degree_icon_2",dust.cache["tl/shared/degree_icon_2"])
+})();(function(){dust.register("tl/shared/degree_icon_3",c);
+var d={"distanceStr":b,"iconTxt":a};
+function c(f,e){e=e.shiftBlocks(d);
+return f.partial("tl/shared/degree_icon_base",e,null)
+}function b(f,e){e=e.shiftBlocks(d);
+return f.reference(e.get(["degree_icon_3__text_plain__NAME_is_3rd_degree_connection_key"],false),e,"h",["et","s"])
+}function a(f,e){e=e.shiftBlocks(d);
+return f.reference(e.get(["degree_icon_3__text_plain__3rd"],false),e,"h",["mk","s"])
+}return c
+})();
+(function(){dust.register("degree_icon_3",dust.cache["tl/shared/degree_icon_3"])
+})();(function(){dust.register("tl/shared/degree_icon_100",c);
+var d={"distanceStr":b,"iconTxt":a};
+function c(f,e){e=e.shiftBlocks(d);
+return f.partial("tl/shared/degree_icon_base",e,null)
+}function b(f,e){e=e.shiftBlocks(d);
+return f.reference(e.get(["degree_icon_100__text_plain__you_and_NAME_have_groups_in_common_key"],false),e,"h",["et","s"])
+}function a(f,e){e=e.shiftBlocks(d);
+return f.reference(e.get(["degree_icon_100__text_plain__group_icon_txt_key"],false),e,"h")
+}return c
+})();
+(function(){dust.register("degree_icon_100",dust.cache["tl/shared/degree_icon_100"])
+})();(function(){dust.register("tl/shared/degree_icon_200",d);
+var e={"distanceStr":c,"iconTxt":b,"customStyle":a};
+function d(g,f){f=f.shiftBlocks(e);
+return g.partial("tl/shared/degree_icon_base",f,null)
+}function c(g,f){f=f.shiftBlocks(e);
+return g.reference(f.get(["degree_icon_200__text_plain__NAME_is_in_your_teams_network"],false),f,"h",["et","s"])
+}function b(g,f){f=f.shiftBlocks(e);
+return g.reference(f.get(["degree_icon_200__text_plain__TeamLink"],false),f,"h")
+}function a(g,f){f=f.shiftBlocks(e);
+return g.write("teamlink")
+}return d
+})();
+(function(){dust.register("degree_icon_200",dust.cache["tl/shared/degree_icon_200"])
+})();(function(){dust.register("tl/apps/profile/v2/partial/member_photo_optimized",p);
+var w={"ghostImgSrc":o,"path":i};
+function p(y,x){x=x.shiftBlocks(w);
+return y.exists(x.get(["generateUrl"],false),x,{"else":c,"block":a},null)
+}function o(y,x){x=x.shiftBlocks(w);
+return y.exists(x.get(["ghostImgUrl"],false),x,{"else":m,"block":k},null)
+}function m(y,x){x=x.shiftBlocks(w);
+return y.reference(x.get(["ghost"],false),x,"h",["s"])
+}function k(y,x){x=x.shiftBlocks(w);
+return y.reference(x.get(["ghostImgUrl"],false),x,"h")
+}function i(y,x){x=x.shiftBlocks(w);
+return y.notexists(x.get(["noPic"],false),x,{"else":g,"block":f},null)
+}function g(y,x){x=x.shiftBlocks(w);
+return y.block(x.getBlock("ghostImgSrc"),x,{},null)
+}function f(y,x){x=x.shiftBlocks(w);
+return y.exists(x.get(["mem_pic"],false),x,{"else":e,"block":d},null)
+}function e(y,x){x=x.shiftBlocks(w);
+return y.block(x.getBlock("ghostImgSrc"),x,{},null)
+}function d(y,x){x=x.shiftBlocks(w);
+return y.reference(x.get(["mem_pic"],false),x,"h")
+}function c(y,x){x=x.shiftBlocks(w);
+return y.notexists(x.get(["isPublicDisplay"],false),x,{"else":v,"block":s},null)
+}function v(y,x){x=x.shiftBlocks(w);
+return y.write('<img class="').exists(x.get(["className"],false),x,{"block":u},null).write('" ').exists(x.get(["altText"],false),x,{"block":t},null).write(' width="').reference(x.get(["size"],false),x,"h").write('" height="').reference(x.get(["size"],false),x,"h").write('" src="').block(x.getBlock("path"),x,{},null).write('">')
+}function u(y,x){x=x.shiftBlocks(w);
+return y.reference(x.get(["className"],false),x,"h")
+}function t(y,x){x=x.shiftBlocks(w);
+return y.write('alt="').reference(x.get(["altText"],false),x,"h").write('"')
+}function s(y,x){x=x.shiftBlocks(w);
+return y.write('<img class="').exists(x.get(["className"],false),x,{"block":r},null).write(" ").exists(x.get(["defer"],false),x,{"block":q},null).write('" ').exists(x.get(["altText"],false),x,{"block":n},null).write(' width="').reference(x.get(["size"],false),x,"h").write('" height="').reference(x.get(["size"],false),x,"h").write('" ').exists(x.get(["defer"],false),x,{"else":l,"block":j},null).write(">")
+}function r(y,x){x=x.shiftBlocks(w);
+return y.reference(x.get(["className"],false),x,"h")
+}function q(y,x){x=x.shiftBlocks(w);
+return y.write("lazy-load")
+}function n(y,x){x=x.shiftBlocks(w);
+return y.write('alt="').reference(x.get(["altText"],false),x,"h").write('"')
+}function l(y,x){x=x.shiftBlocks(w);
+return y.write('src="').block(x.getBlock("path"),x,{},null).write('"')
+}function j(y,x){x=x.shiftBlocks(w);
+return y.write('src="').exists(x.get(["spacerImgUrl"],false),x,{"else":h,"block":b},null).write('" data-li-src="').block(x.getBlock("path"),x,{},null).write('"')
+}function h(y,x){x=x.shiftBlocks(w);
+return y.write("about:blank")
+}function b(y,x){x=x.shiftBlocks(w);
+return y.reference(x.get(["spacerImgUrl"],false),x,"h")
+}function a(y,x){x=x.shiftBlocks(w);
+return y.block(x.getBlock("path"),x,{},null)
+}return p
+})();
+(function(){dust.register("member_photo_optimized",dust.cache["tl/apps/profile/v2/partial/member_photo_optimized"])
+})();(function(){dust.register("tl/apps/profile/my_profile/embed/follow_company",i);
+var a={"companyHeadline":f};
+function i(k,j){j=j.shiftBlocks(a);
+return k.write('<p class="following-name"><a href="').reference(j.get(["link_biz"],false),j,"h").write('"><span class="companies-logo">').exists(j.get(["logoId"],false),j,{"else":h,"block":g},null).write("</span><strong>").reference(j.get(["canonicalName"],false),j,"h").write("</strong></a></p>").write('<p class="following-field">').block(j.getBlock("companyHeadline"),j,{},null).write('</p><div class="select-follow-action"><a class="following-active selected following-active-color" href=\'').reference(j.get(["biz_follow"],false),j,"h").write('&fl=stop&trk=profile-edit-following-companies-unfollow-submit\'><span class="followingText">').reference(j.get(["i18n_currently_following"],false),j,"h").write('</span><span class="unfollowText">').reference(j.get(["i18n_unfollow"],false),j,"h").write('</span></a><a class="following-action" href=\'').reference(j.get(["biz_follow"],false),j,"h").write("&fl=start&trk=profile-edit-following-companies-follow-submit'>").reference(j.get(["i18n_follow"],false),j,"h").write("</a></div>")
+}function h(k,j){j=j.shiftBlocks(a);
+return k.write("<img src='").reference(j.get(["no_logo"],false),j,"h",["s"]).write('\' width="80" height="48" class="photo" alt="').reference(j.get(["canonicalName"],false),j,"h").write('"/>')
+}function g(k,j){j=j.shiftBlocks(a);
+return k.write("<img src='").reference(j.get(["logo"],false),j,"h",["s"]).write('\' alt=""/>')
+}function f(k,j){j=j.shiftBlocks(a);
+return k.exists(j.get(["isBrand"],false),j,{"else":e,"block":d},null)
+}function e(k,j){j=j.shiftBlocks(a);
+return k.reference(j.get(["ind_lookup"],false),j,"h")
+}function d(k,j){j=j.shiftBlocks(a);
+return k.exists(j.get(["parentName"],false),j,{"else":c,"block":b},null)
+}function c(k,j){j=j.shiftBlocks(a);
+return k.reference(j.get(["i18n_a_showcase_page"],false),j,"h")
+}function b(k,j){j=j.shiftBlocks(a);
+return k.reference(j.get(["i18n_a_showcase_page_by_company"],false),j,"h",["s"])
+}return i
+})();
+(function(){dust.register("follow_company",dust.cache["tl/apps/profile/my_profile/embed/follow_company"])
+})();(function(){dust.register("tl/apps/profile/my_profile/embed/following_companies_expanded_view",e);
+function e(g,f){return g.write('<div class="following-companies following-category entity expanded-view"><h4 class="main-header-field">').reference(f.get(["i18n_companies"],false),f,"h").write("</h4><ul>").section(f.get(["companyFollowees"],false),f,{"block":d},null).write('<li class="see-less"><a class="see-arrow" href="#"><span></span></a><a class="see-action" href="#">').reference(f.get(["i18n_see_less"],false),f,"h").write("</a></li></ul></div>")
+}function d(g,f){return g.write('<li class="').helper("math",f,{"block":c},{"key":a,"method":"mod","operand":"4"}).write('">').partial("tl/apps/profile/my_profile/embed/follow_company",f,null).write("</li>")
+}function c(g,f){return g.helper("eq",f,{"block":b},{"value":"0","type":"number"})
+}function b(g,f){return g.write(" rowfirst")
+}function a(g,f){return g.reference(f.get(["$idx"],false),f,"h")
+}return e
+})();
+(function(){dust.register("following_companies_expanded_view",dust.cache["tl/apps/profile/my_profile/embed/following_companies_expanded_view"])
+})();(function(){dust.register("tl/apps/profile/my_profile/embed/following_companies_collapsed_view",e);
+var f={"ifHideCompany":c};
+function e(i,h){h=h.shiftBlocks(f);
+return i.write('<div class="following-companies following-category entity collapsed-view" data-li-ajax-url="').reference(h.get(["getAllCompaniesUrl"],false),h,"h").write('"><h4 class="main-header-field">').reference(h.get(["i18n_companies"],false),h,"h").write("</h4><ul>").section(h.get(["companyFollowees"],false),h,{"block":d},null).exists(h.get(["companySeeMore"],false),h,{"block":b},null).write("</ul></div>")
+}function d(i,h){h=h.shiftBlocks(f);
+return i.write('<li class="').block(h.getBlock("ifHideCompany"),h,{},null).write('">').partial("tl/apps/profile/my_profile/embed/follow_company",h,null).write("</li>")
+}function c(i,h){h=h.shiftBlocks(f);
+return i.partial("tl/apps/profile/my_profile/partial/following_limit_visible_items",h,{"count":h.get(["companyFolloweeCount"],false)})
+}function b(i,h){h=h.shiftBlocks(f);
+return i.helper("gt",h,{"block":a},{"key":g,"value":"8","type":"number"})
+}function a(i,h){h=h.shiftBlocks(f);
+return i.write('<li class="see-more"><a class="see-arrow" href="#"><span></span></a><a class="see-action" href="#">').reference(h.get(["i18n_see_more_inline"],false),h,"h").write("</a></li>")
+}function g(i,h){h=h.shiftBlocks(f);
+return i.reference(h.get(["companyFolloweeCount"],false),h,"h")
+}return e
+})();
+(function(){dust.register("following_companies_collapsed_view",dust.cache["tl/apps/profile/my_profile/embed/following_companies_collapsed_view"])
+})();

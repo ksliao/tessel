@@ -1,0 +1,18 @@
+LI.define("ProfileResumeImportDialog");
+LI.ProfileResumeImportDialog=function(b,a){$(b).find(".upload-file").change(function(){var c=$(b).find("#upload-resume-submit");
+c.prop("disabled",false)
+});
+$(b).find("#upload-resume-submit").click(function(c){var e=$(c.currentTarget).closest("form");
+function d(){e.submit()
+}c.preventDefault(c);
+WebTracking.trackWithCallback("prof-topcard-resume-import-submit","",d,d,false)
+})
+};(function(){var f={groups:"#groups-container",seeMore:".see-more",seeLess:".see-less"},b={showAllGroups:"show-all-groups"},d={click:"click"},a={};
+function h(){c();
+g()
+}function c(){a.$groups=$(f.groups)
+}function g(){var i=[f.seeMore,f.seeLess].join(",");
+a.$groups.on(d.click,i,e)
+}function e(){a.$groups.toggleClass(b.showAllGroups)
+}h()
+})();

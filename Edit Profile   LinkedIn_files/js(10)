@@ -1,0 +1,425 @@
+(function(){dust.register("tl/apps/profile/my_profile/partial/people_follow_promo",a);
+function a(c,b){return c.write('<a class="who-to-follow" href="').reference(b.get(["link__who_to_follow"],false),b,"h",["s"]).write('"><div class="follow-people-promo"><h2>').reference(b.get(["i18n__follow_promo_title"],false),b,"h").write("</h2><p>").reference(b.get(["i18n__follow_promo_body"],false),b,"h").write("</p></div></a>")
+}return a
+})();
+(function(){dust.register("people_follow_promo",dust.cache["tl/apps/profile/my_profile/partial/people_follow_promo"])
+})();(function(){dust.register("tl/apps/profile/my_profile/embed/location_edit_bi",p);
+function p(B,A){return B.section(A.get(["BasicInfo"],false),A,{"block":n},null)
+}function n(B,A){return B.section(A.get(["locationForm"],false),A,{"block":m},null)
+}function m(B,A){return B.section(A.get(["html"],false),A,{"block":k},null)
+}function k(B,A){return B.section(A.get(["basic_info"],false),A,{"block":i},null)
+}function i(B,A){return B.section(A.get(["formData"],false),A,{"block":g},null)
+}function g(B,A){return B.write('<form class="standard-form hover-form" name="').reference(A.get(["name"],false),A,"h").write('" method="').reference(A.get(["method"],false),A,"h").write('" action="').reference(A.get(["action"],false),A,"h").write('"><strong class="hover-form-header">').reference(A.get(["i18n_currently_editing"],false),A,"h").write("</strong><ul>").section(A.get(["location"],false),A,{"block":f},null).write('<li id="location-display-selection"><fieldset><legend><span>').reference(A.get(["i18n_location_name"],false),A,"h").write('</span></legend><ul class="location-names"><li>').reference(A.get(["i18n_no_location_matches"],false),A,"h").write("</li></ul></fieldset></li><li>").section(A.get(["industryChooser"],false),A,{"block":u},{"selectedValue":t}).write("</li></ul>").helper("jsControl",A,{"block":s},{"name":"LocationPicker"}).helper("jsControl",A,{"block":r},{"name":"getRegionAndCityOptions"}).partial("tl/apps/profile/my_profile/partial/actions",A,{"trackSave":"nprofile-edit-location_industry-submit","trackCancel":"nprofile-edit-location_industry-cancel"}).section(A.get(["privacySettingsVersionTag"],false),A,{"block":q},null).section(A.get(["profileVersionTag"],false),A,{"block":o},null).section(A.get(["locale"],false),A,{"block":l},null).section(A.get(["nudgeID"],false),A,{"block":j},null).section(A.get(["timestamp"],false),A,{"block":h},null).section(A.get(["defaultLocaleParam"],false),A,{"block":b},null).section(A.get(["csrfToken"],false),A,{"block":a},null).section(A.get(["sourceAlias"],false),A,{"block":z},null).section(A.get(["useJsonResponse"],false),A,{"block":y},{"passedInValue":"true"}).section(A.get(["oldShowGeoPlaceFlag"],false),A,{"block":x},null).write("</form>").helper("jsControl",A,{"block":w},{"name":"FrontierAJAXForm","disableControlInitData":"true"})
+}function f(B,A){return B.write('<li class="country">').section(A.get(["countryCode"],false),A,{"block":e},{"selectedValue":A.get(["locationCountryCode"],false)}).write('</li><li class="postal-code">').section(A.get(["postalCode"],false),A,{"block":d},null).write("</li>").helper("jsControl",A,{"block":v},{"name":"getRegionAndCityOptions"})
+}function e(B,A){return B.write('<label for="').reference(A.getPath(true,["id"]),A,"h").write('">').reference(A.get(["i18n_country"],false),A,"h").write("</label>").partial("tl/apps/profile/my_profile/partial/select_with_value",A,null)
+}function d(B,A){return B.write('<span class="error" id="').reference(A.getPath(true,["id"]),A,"h").write('-error"></span><label for="').reference(A.getPath(true,["id"]),A,"h").write('" id="').reference(A.getPath(true,["id"]),A,"h").write('-label-postal-code">').reference(A.get(["i18n_postal_code"],false),A,"h").write('</label><label for="').reference(A.getPath(true,["id"]),A,"h").write('" id="').reference(A.getPath(true,["id"]),A,"h").write('-label-location" class="hidden">').reference(A.get(["i18n_location"],false),A,"h").write('</label><input name="').reference(A.getPath(true,["name"]),A,"h").write('" id="').reference(A.getPath(true,["id"]),A,"h").write('" type="').reference(A.getPath(true,["type"]),A,"h").write('" value="').exists(A.get(["locationPostalCode"],false),A,{"block":c},null).write('"/><div class="locationPickersHolder"><select class="provinceSelect"></select><select class="citySelect"></select></div>')
+}function c(B,A){return B.reference(A.get(["locationPostalCode"],false),A,"h")
+}function v(B,A){return B.write("{countryFieldId: '").reference(A.getPath(false,["countryCode","id"]),A,"h",["j","s"]).write("',postalCodeId: '").reference(A.getPath(false,["postalCode","id"]),A,"h",["j","s"]).write("',resultsContainerId: 'location-display-selection',requestURL: '").reference(A.get(["link_regions_cities"],false),A,"h",["j","s"]).write("'}")
+}function u(B,A){return B.write('<span class="error" id="').reference(A.getPath(true,["id"]),A,"h").write('-error"></span><label for="').reference(A.getPath(true,["id"]),A,"h").write('">').reference(A.get(["i18n_industry"],false),A,"h").write("</label>").partial("tl/apps/profile/my_profile/partial/select_with_value",A,null)
+}function t(B,A){return B.reference(A.get(["industryID"],false),A,"h")
+}function s(B,A){return B.write('{countryChooser:"li.country select",postalCodeElement:"li.postal-code input",onToggle: LI.Profile.location.changePostalLabel,stateSelectText: "').reference(A.get(["i18n_state_select"],false),A,"h",["j","s"]).write('",citySelectText: "').reference(A.get(["i18n_city_select"],false),A,"h",["j","s"]).write("\",stateSelectElement: 'li.postal-code .provinceSelect',citySelectElement: 'li.postal-code .citySelect',pickersHolderElement: 'li.postal-code .locationPickersHolder'}")
+}function r(B,A){return B.write("config = {countryFieldId: '").reference(A.getPath(false,["countryCode","id"]),A,"h",["j","s"]).write("',postalCodeId: '").reference(A.getPath(false,["postalCode","id"]),A,"h",["j","s"]).write("',resultsContainerId: 'location-display-selection',requestURL: '").reference(A.get(["link__nprofileRegionCity"],false),A,"h",["j","s"]).write("'}")
+}function q(B,A){return B.partial("tl/apps/profile/v2/partial/hidden_with_value",A,null)
+}function o(B,A){return B.partial("tl/apps/profile/v2/partial/hidden_with_value",A,null)
+}function l(B,A){return B.partial("tl/apps/profile/my_profile/partial/hidden_with_value",A,null)
+}function j(B,A){return B.partial("tl/apps/profile/my_profile/partial/hidden_with_value",A,null)
+}function h(B,A){return B.partial("tl/apps/profile/my_profile/partial/hidden_with_value",A,null)
+}function b(B,A){return B.partial("tl/apps/profile/my_profile/partial/hidden_with_value",A,null)
+}function a(B,A){return B.partial("tl/apps/profile/my_profile/partial/hidden_with_value",A,null)
+}function z(B,A){return B.partial("tl/apps/profile/my_profile/partial/hidden_with_value",A,null)
+}function y(B,A){return B.partial("tl/apps/profile/my_profile/partial/hidden_with_value",A,null)
+}function x(B,A){return B.write('<input class="hide" type="').reference(A.getPath(true,["type"]),A,"h").write('" name="').reference(A.getPath(true,["name"]),A,"h").write('" value="true" id="').reference(A.getPath(true,["id"]),A,"h").write('">')
+}function w(B,A){return B.write("{injectAfter: '.btn-primary',errorId: 'global-error',scrollIntoViewOnError : false,showCloseInError : true,successCallback: function(data) {$.fn.ProfileEdit.handleSaveSuccess({listTemplate : 'tl/apps/profile/my_profile/embed/location_bi',containerId : 'location-container',responseData : data});},errorCallback: function(err) {$.fn.ProfileEdit.handleSaveFailure(err);},exceptionCallback : function() {$.fn.ProfileEdit.handleSaveException();}}")
+}return p
+})();
+(function(){dust.register("location_edit_bi",dust.cache["tl/apps/profile/my_profile/embed/location_edit_bi"])
+})();(function(){dust.register("tl/apps/profile/my_profile/embed/phone_self",e);
+function e(g,f){return g.write("<th>").reference(f.get(["i18n__Phone"],false),f,"h").write('</th> <td><div id="phone" class="editable-item"><div class="field">').partial("tl/apps/profile/my_profile/partial/primary/edit/edit_field_button",f,{"customEditMsg":d}).exists(f.get(["phones"],false),f,{"block":c},null).write("</div>").exists(f.get(["formData"],false),f,{"block":a},null).write("</div></td>")
+}function d(g,f){return g.reference(f.get(["i18n_edit_phone_info"],false),f,"h")
+}function c(g,f){return g.write('<ul class="field-text">').section(f.get(["phones"],false),f,{"block":b},null).write("</ul>")
+}function b(g,f){return g.write("<li>").partial("tl/apps/profile/my_profile/partial/phone_item",f,null).write("</li>")
+}function a(g,f){return g.write('<div id="phone-edit" class="edit-form"><!--').partial("tl/apps/profile/my_profile/embed/phone_edit",f,null).write("--></div>")
+}return e
+})();
+(function(){dust.register("phone_self",dust.cache["tl/apps/profile/my_profile/embed/phone_self"])
+})();(function(){dust.register("tl/apps/profile/my_profile/embed/recommended_sections",k);
+var a={"recommendedSectionsList":j};
+function k(n,m){m=m.shiftBlocks(a);
+return n.write('<script>LI.i18n.register("i18n_failed_rec_sctn", \'').reference(m.get(["i18n__failed_rec_sctn"],false),m,"h",["h","j","s"]).write("');<\/script>").section(m.get(["add_sections"],false),m,{"block":f},null)
+}function j(n,m){m=m.shiftBlocks(a);
+return n.section(m.get(["add_sections"],false),m,{"block":i},null)
+}function i(n,m){m=m.shiftBlocks(a);
+return n.write('<ul class="recommended-sections-all">').section(m.get(["recommendedSections"],false),m,{"block":h},null).section(m.get(["otherSections"],false),m,{"block":g},null).write("</ul>")
+}function h(n,m){m=m.shiftBlocks(a);
+return n.partial("tl/apps/profile/my_profile/partial/npe/_recommended_sections_list",m,null)
+}function g(n,m){m=m.shiftBlocks(a);
+return n.partial("tl/apps/profile/my_profile/partial/npe/_recommended_sections_list",m,null)
+}function f(n,m){m=m.shiftBlocks(a);
+return n.helper("gt",m,{"block":e},{"key":m.get(["countOfVisibleRows"],false),"value":"0","type":"number"})
+}function e(n,m){m=m.shiftBlocks(a);
+return n.write('<div class="recommended-sections-container ').helper("eq",m,{"block":d},{"key":m.get(["lix_recommended_sections_wd"],false),"value":"treatment"}).write('" data-li-template="recommended_sections"><h3 class="recommended-sections-headline">').reference(m.get(["i18n_rec_headline"],false),m,"h",["s"]).write("</h3>").exists(m.get(["isViewToggleRequired"],false),m,{"else":c,"block":b},null).write("</div>")
+}function d(n,m){m=m.shiftBlocks(a);
+return n.write("recommended-sections-with-duration")
+}function c(n,m){m=m.shiftBlocks(a);
+return n.block(m.getBlock("recommendedSectionsList"),m,{},null)
+}function b(n,m){m=m.shiftBlocks(a);
+return n.write('<div id="rec-sctn-view-toggle" class="recommended-sections-list-container viewmore-container state-viewmore view-').reference(m.get(["countOfVisibleRows"],false),m,"h").write('">').block(m.getBlock("recommendedSectionsList"),m,{},null).write('<div class="view-bar view-more-bar"><span>').reference(m.get(["i18n_view_more"],false),m,"h").write('</span></div><div class="view-bar view-less-bar"><span>').reference(m.get(["i18n_view_less"],false),m,"h").write("</span></div></div>").helper("jsControl",m,{"block":l},{"name":"LI.ViewStateToggle"})
+}function l(n,m){m=m.shiftBlocks(a);
+return n.write("{triggerSelector: '.view-more-bar, .view-less-bar',animate: true}")
+}return k
+})();
+(function(){dust.register("recommended_sections",dust.cache["tl/apps/profile/my_profile/embed/recommended_sections"])
+})();(function(){dust.register("tl/apps/profile/my_profile/embed/top_card",N);
+var am={"follow_class":H,"photo_class":aF,"numberOfConnections":Q,"followCountOutput":w};
+function N(aM,aL){aL=aL.shiftBlocks(am);
+return aM.partial("tl/shared/js-control/introsdialogstub",aL,null).section(aL.get(["TopCard"],false),aL,{"block":M},null)
+}function M(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write("<!--Enjoy our markup-->").section(aL.get(["actions"],false),aL,{"block":L},null).write('<div id="top-card" data-li-template="top_card">').write('<div class="profile-top-card top-card ').block(aL.getBlock("photo_class"),aL,{},null).block(aL.getBlock("follow_class"),aL,{},null).write('"><div class="profile-card vcard entity" tabindex="0">').partial("tl/apps/profile/my_profile/partial/profile_photo",aL,null).write('<div class="profile-overview"><div class="profile-overview-content"><div id="member-').reference(aL.getPath(false,["basic_info","memberID"]),aL,"h").write('" class="masthead"><div class="account-icons">').partial("tl/apps/profile/my_profile/embed/badge",aL,null).write("</div>").exists(aL.get(["BasicInfo"],false),aL,{"block":aB},null).write('</div><table summary="').reference(aL.get(["i18n__Overview_for_X"],false),aL,"h",["et","s"]).write('">').section(aL.get(["positionsMpr"],false),aL,{"block":az},null).section(aL.get(["educationsMpr"],false),aL,{"block":af},null).write("</table>").section(aL.get(["positionsMpr"],false),aL,{"block":ab},null).section(aL.get(["educationsMpr"],false),aL,{"block":V},null).write('</div><div class="profile-aux">').helper("gte",aL,{"else":D,"block":C},{"key":q,"value":"0","type":"number"}).section(aL.get(["distance"],false),aL,{"block":p},null).write("</div><!-- /profile-aux --></div><!-- End profile-overview --></div><!-- End profile card -->").notexists(aL.getPath(false,["basic_info","isPortfolio"]),aL,{"block":aw},null).write("</div></div>").partial("tl/apps/profile/my_profile/partial/premium/_topcard_background",aL,null).helper("eq",aL,{"block":ag},{"key":aL.get(["lix_show_snap_bar"],false),"value":"B"})
+}function L(aM,aL){aL=aL.shiftBlocks(am);
+return aM.exists(aL.get(["primaryAction"],false),aL,{"block":K},null)
+}function K(aM,aL){aL=aL.shiftBlocks(am);
+return aM.helper("eq",aL,{"block":J},{"key":aL.get(["primaryAction"],false),"value":"FOLLOW"})
+}function J(aM,aL){aL=aL.shiftBlocks(am);
+return aM.helper("eq",aL,{"block":I},{"key":aL.get(["lix_peopleFollowInfluencerMessaging"],false),"value":"enabled"})
+}function I(aM,aL){aL=aL.shiftBlocks(am);
+return aM.partial("tl/apps/profile/my_profile/partial/people_follow_promo",aL,null)
+}function H(aM,aL){aL=aL.shiftBlocks(am);
+return aM.section(aL.get(["actions"],false),aL,{"block":G},null)
+}function G(aM,aL){aL=aL.shiftBlocks(am);
+return aM.exists(aL.get(["primaryAction"],false),aL,{"block":F},null)
+}function F(aM,aL){aL=aL.shiftBlocks(am);
+return aM.helper("eq",aL,{"block":E},{"key":aL.get(["primaryAction"],false),"value":"FOLLOW"})
+}function E(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write(" follow")
+}function aF(aM,aL){aL=aL.shiftBlocks(am);
+return aM.notexists(aL.getPath(false,["picture","isVisible"]),aL,{"block":aD},null)
+}function aD(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write(" no-photo")
+}function aB(aM,aL){aL=aL.shiftBlocks(am);
+return aM.partial("tl/apps/profile/my_profile/embed/p2_basic_info",aL,null)
+}function az(aM,aL){aL=aL.shiftBlocks(am);
+return aM.exists(aL.get(["topCurrent"],false),aL,{"block":ax},null).exists(aL.get(["topPrevious"],false),aL,{"block":ar},null)
+}function ax(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write('<tr id="overview-summary-current"><th scope="row">').reference(aL.get(["i18n__Current_company"],false),aL,"h").write('</th><td><span class="field">').partial("tl/apps/profile/my_profile/partial/primary/edit/edit_field_button",aL,{"customEditMsg":av}).write('<ol class="field-text">').section(aL.get(["topCurrent"],false),aL,{"block":au},null).write("</ol></span></td></tr>")
+}function av(aM,aL){aL=aL.shiftBlocks(am);
+return aM.reference(aL.get(["i18n_edit_current_exp"],false),aL,"h")
+}function au(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write("<li>").partial("tl/apps/profile/my_profile/embed/company_link",aL,{"isNotFieldText":"true"}).helper("sep",aL,{"block":at},null).write("</li>")
+}function at(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write(", ")
+}function ar(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write('<tr id="overview-summary-past"><th scope="row">').reference(aL.get(["i18n__Previous_company"],false),aL,"h").write('</th><td><span class="field">').partial("tl/apps/profile/my_profile/partial/primary/edit/edit_field_button",aL,{"customEditMsg":aq}).write('<ol class="field-text">').section(aL.get(["topPrevious"],false),aL,{"block":aj},null).write("</ol></span></td></tr>")
+}function aq(aM,aL){aL=aL.shiftBlocks(am);
+return aM.reference(aL.get(["i18n_edit_prev_exp"],false),aL,"h")
+}function aj(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write("<li>").partial("tl/apps/profile/my_profile/embed/company_link",aL,{"isNotFieldText":"true"}).helper("sep",aL,{"block":ah},null).write("</li>")
+}function ah(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write(", ")
+}function af(aM,aL){aL=aL.shiftBlocks(am);
+return aM.exists(aL.get(["topEducations"],false),aL,{"block":ae},null)
+}function ae(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write('<tr id="overview-summary-education"><th scope="row">').reference(aL.get(["i18n__Education"],false),aL,"h").write('</th><td><span class="field">').partial("tl/apps/profile/my_profile/partial/primary/edit/edit_field_button",aL,{"customEditMsg":ad}).write('<ol class="field-text">').section(aL.get(["topEducations"],false),aL,{"block":ac},null).write("</ol></span></td></tr>")
+}function ad(aM,aL){aL=aL.shiftBlocks(am);
+return aM.reference(aL.get(["i18n_edit_edu"],false),aL,"h")
+}function ac(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write("<li>").reference(aL.get(["schoolHighlight"],false),aL,"h",["mk","s"]).write("</li>")
+}function ab(aM,aL){aL=aL.shiftBlocks(am);
+return aM.notexists(aL.get(["topCurrent"],false),aL,{"block":aa},null)
+}function aa(aM,aL){aL=aL.shiftBlocks(am);
+return aM.notexists(aL.get(["topPrevious"],false),aL,{"block":Z},null)
+}function Z(aM,aL){aL=aL.shiftBlocks(am);
+return aM.partial("tl/apps/profile/my_profile/partial/_edit_field",aL,{"addEntity":"EXP","ctaMsg":Y,"ctaDescHeadline":X,"ctaDesc":W,"trk":"topcard-exp"})
+}function Y(aM,aL){aL=aL.shiftBlocks(am);
+return aM.reference(aL.get(["i18n_add_experience"],false),aL,"h")
+}function X(aM,aL){aL=aL.shiftBlocks(am);
+return aM.reference(aL.get(["i18n_experience_desc"],false),aL,"h")
+}function W(aM,aL){aL=aL.shiftBlocks(am);
+return aM.reference(aL.get(["i18n_members_with_exp"],false),aL,"h")
+}function V(aM,aL){aL=aL.shiftBlocks(am);
+return aM.notexists(aL.get(["topEducations"],false),aL,{"block":U},null)
+}function U(aM,aL){aL=aL.shiftBlocks(am);
+return aM.partial("tl/apps/profile/my_profile/partial/_edit_field",aL,{"addEntity":"EDU","ctaMsg":T,"ctaDescHeadline":S,"ctaDesc":R,"trk":"topcard-edu"})
+}function T(aM,aL){aL=aL.shiftBlocks(am);
+return aM.reference(aL.get(["i18n_add_education"],false),aL,"h")
+}function S(aM,aL){aL=aL.shiftBlocks(am);
+return aM.reference(aL.get(["i18n_education_desc"],false),aL,"h")
+}function R(aM,aL){aL=aL.shiftBlocks(am);
+return aM.reference(aL.get(["i18n_members_with_a_school"],false),aL,"h")
+}function Q(aM,aL){aL=aL.shiftBlocks(am);
+return aM.notexists(aL.getPath(false,["basic_info","isPortfolio"]),aL,{"block":P},null)
+}function P(aM,aL){aL=aL.shiftBlocks(am);
+return aM.exists(aL.getPath(false,["distance","numberOfConnections"]),aL,{"block":O},null)
+}function O(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write('<div class="member-connections"><strong>').reference(aL.get(["i18n_numconnectionsformattable"],false),aL,"h").write("</strong>").reference(aL.get(["connectionconnections"],false),aL,"h").write("</div>")
+}function D(aM,aL){aL=aL.shiftBlocks(am);
+return aM.block(aL.getBlock("numberOfConnections"),aL,{},null)
+}function C(aM,aL){aL=aL.shiftBlocks(am);
+return aM.exists(aL.getPath(false,["actions","primaryAction"]),aL,{"else":B,"block":A},null)
+}function B(aM,aL){aL=aL.shiftBlocks(am);
+return aM.block(aL.getBlock("numberOfConnections"),aL,{},null)
+}function A(aM,aL){aL=aL.shiftBlocks(am);
+return aM.helper("eq",aL,{"else":z,"block":y},{"key":aL.getPath(false,["actions","primaryAction"]),"value":"FOLLOW"})
+}function z(aM,aL){aL=aL.shiftBlocks(am);
+return aM.block(aL.getBlock("numberOfConnections"),aL,{},null)
+}function y(aM,aL){aL=aL.shiftBlocks(am);
+return aM.section(aL.get(["followers"],false),aL,{"block":x},null)
+}function x(aM,aL){aL=aL.shiftBlocks(am);
+return aM.helper("eq",aL,{"else":v,"block":u},{"key":r,"value":"enabled"})
+}function w(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write('<div class="member-connections follower-count"><strong>').reference(aL.get(["formattedNumberFollowers"],false),aL,"h").write("</strong>").reference(aL.get(["_i18n_follower_count"],false),aL,"h").write("</div>")
+}function v(aM,aL){aL=aL.shiftBlocks(am);
+return aM.block(aL.getBlock("followCountOutput"),aL,{},null)
+}function u(aM,aL){aL=aL.shiftBlocks(am);
+return aM.helper("gte",aL,{"block":t},{"key":s,"value":"2500","type":"number"})
+}function t(aM,aL){aL=aL.shiftBlocks(am);
+return aM.block(aL.getBlock("followCountOutput"),aL,{},null)
+}function s(aM,aL){aL=aL.shiftBlocks(am);
+return aM.reference(aL.get(["numberFollowers"],false),aL,"h")
+}function r(aM,aL){aL=aL.shiftBlocks(am);
+return aM.reference(aL.get(["lix_enable_follower_count_threshold"],false),aL,"h")
+}function q(aM,aL){aL=aL.shiftBlocks(am);
+return aM.reference(aL.getPath(false,["followers","numberFollowers"]),aL,"h")
+}function p(aM,aL){aL=aL.shiftBlocks(am);
+return aM.section(aL.get(["basic_info"],false),aL,{"block":o},null)
+}function o(aM,aL){aL=aL.shiftBlocks(am);
+return aM.section(aL.get(["actions"],false),aL,{"block":n},null)
+}function n(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write('<div class="profile-actions" data-key="').reference(aL.get(["lix_view_profile_text"],false),aL,"h").write('">').notexists(aL.get(["isPortfolio"],false),aL,{"block":m},null).write("</div><!-- /profile-actions -->")
+}function m(aM,aL){aL=aL.shiftBlocks(am);
+return aM.section(aL.getPath(false,["locale","currentLocale"]),aL,{"block":l},null).notexists(aL.get(["isEmptyOtherActions"],false),aL,{"block":g},null)
+}function l(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write('<a href="').reference(aL.get(["link_preview_my_profile"],false),aL,"h").write('" class="preview-profile button-primary">').helper("select",aL,{"block":k},{"key":aL.get(["lix_view_profile_text"],false)}).write("</a>")
+}function k(aM,aL){aL=aL.shiftBlocks(am);
+return aM.helper("eq",aL,{"block":j},{"value":"A"}).helper("eq",aL,{"block":i},{"value":"B"}).helper("default",aL,{"block":h},null)
+}function j(aM,aL){aL=aL.shiftBlocks(am);
+return aM.reference(aL.get(["i18n_view_profile_stc"],false),aL,"h",["s"])
+}function i(aM,aL){aL=aL.shiftBlocks(am);
+return aM.reference(aL.get(["i18n_view_your_profile_stc"],false),aL,"h",["s"])
+}function h(aM,aL){aL=aL.shiftBlocks(am);
+return aM.reference(aL.get(["i18n_view_profile_as_stc"],false),aL,"h",["s"])
+}function g(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write('<div class="more-options"><button><span>').reference(aL.get(["i18n__More_options"],false),aL,"h").write('</span></button><dl class="menu">').section(aL.get(["interactActions"],false),aL,{"block":f},null).exists(aL.get(["profileActions"],false),aL,{"block":aH},null).write("</dl></div><!-- /button-menu -->").helper("jsControl",aL,{"block":ay},{"name":"Dropdown"})
+}function f(aM,aL){aL=aL.shiftBlocks(am);
+return aM.helper("eq",aL,{"block":e},{"key":aL.get(["action"],false),"value":"ADD_RECOMMENDATIONS"}).helper("eq",aL,{"block":c},{"key":aL.get(["action"],false),"value":"CREATE_PROFILE_IN_ANOTHER_LANGUAGE"}).helper("eq",aL,{"block":a},{"key":aL.get(["action"],false),"value":"IMPORT_RESUME"}).helper("eq",aL,{"block":aJ},{"key":aL.get(["action"],false),"value":"VIEW_RECENT_ACTIVITIES"})
+}function e(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write("<dd>").partial(d,aL,{"isOther":"true"}).write("</dd>")
+}function d(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write("tl/apps/profile/my_profile/actions/").reference(aL.get(["action"],false),aL,"h")
+}function c(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write("<dd>").partial(b,aL,{"isOther":"true"}).write("</dd>")
+}function b(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write("tl/apps/profile/my_profile/actions/").reference(aL.get(["action"],false),aL,"h")
+}function a(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write("<dd>").partial(aK,aL,{"isOther":"true"}).write("</dd>")
+}function aK(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write("tl/apps/profile/my_profile/actions/").reference(aL.get(["action"],false),aL,"h")
+}function aJ(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write("<dd>").partial(aI,aL,{"isOther":"true"}).write("</dd>")
+}function aI(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write("tl/apps/profile/my_profile/actions/").reference(aL.get(["action"],false),aL,"h")
+}function aH(aM,aL){aL=aL.shiftBlocks(am);
+return aM.section(aL.get(["profileActions"],false),aL,{"block":aG},null).write("<dd><a href='").reference(aL.get(["link_pprof_settings"],false),aL,"h",["s"]).write("'>").reference(aL.get(["i18n_pprof_settings"],false),aL,"h").write("</a></dd>")
+}function aG(aM,aL){aL=aL.shiftBlocks(am);
+return aM.helper("ne",aL,{"block":aE},{"key":aL.get(["lix_print_to_pdf"],false),"value":"hide"})
+}function aE(aM,aL){aL=aL.shiftBlocks(am);
+return aM.helper("eq",aL,{"block":aC},{"key":aL.get(["action"],false),"value":"PDF"})
+}function aC(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write("<dd>").partial(aA,aL,{"isOther":"true"}).write("</dd>")
+}function aA(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write("tl/apps/profile/my_profile/actions/").reference(aL.get(["action"],false),aL,"h")
+}function ay(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write('{eventType: "hover",activeClass: "active",mercyTime: 300}')
+}function aw(aM,aL){aL=aL.shiftBlocks(am);
+return aM.notexists(aL.getPath(false,["upsell","showSummaryUpsell"]),aL,{"block":ap},null)
+}function ap(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write('<div class="profile-card-extras">').partial("tl/apps/profile/my_profile/embed/contact_info",aL,null).write('<div class="profile-actions entity"><ul class="public-profile-section is-focusable" tabindex="0"><li><dl class="public-profile"><dt>').reference(aL.get(["i18n__Public_Profile"],false),aL,"h").write("</dt><dd>").exists(aL.getPath(false,["public_url","canonicalUrlToShow"]),aL,{"else":ao,"block":an},null).write("</dd></dl></li></ul>").exists(aL.getPath(false,["contact_info","hasContactInfo"]),aL,{"block":ai},null).write("</div><!-- /profile-actions --></div>")
+}function ao(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write('<a class="external-link field" href=\'').reference(aL.get(["link_nprofile_public_profile_settings_3"],false),aL,"h",["s"]).write('\'><span class="cta">').reference(aL.get(["i18n_update_public_profile_settings"],false),aL,"h",["et","s"]).write("</span></a>")
+}function an(aM,aL){aL=aL.shiftBlocks(am);
+return aM.helper("eq",aL,{"else":al,"block":ak},{"key":aL.get(["lix_myprofile_public_profile_url"],false),"value":"B"})
+}function al(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write('<a tabindex="-1" class="external-link field" href="').reference(aL.get(["link_nprofile_public_profile_settings_2"],false),aL,"h").write('">').partial("tl/apps/profile/my_profile/partial/primary/edit/edit_field_button",aL,{"customEditMsg":aL.get(["i18n_update_public_profile_settings"],false)}).write('<span class="field-text public-profile-url">').reference(aL.getPath(false,["public_url","canonicalUrlToShow"]),aL,"h").write("</span></a>")
+}function ak(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write('<span class="public-profile-url">').reference(aL.getPath(false,["public_url","canonicalUrlToShow"]),aL,"h").write('</span><a class="public-profile-settings-link" href="').reference(aL.get(["link_nprofile_public_profile_settings_2"],false),aL,"h").write('" title="').reference(aL.get(["i18n_update_public_profile_settings"],false),aL,"h",["et","s"]).write('"></a>')
+}function ai(aM,aL){aL=aL.shiftBlocks(am);
+return aM.write('<div class="show-more-info"><a href="#"><span class="contact">').reference(aL.get(["i18n__Contact_Info"],false),aL,"h").write('</span><span class="edit-contact" data-trk=\'{"componentKey":"prof-edit-contact_information","source":"prof-edit-contact_info-button"}\'>').reference(aL.get(["i18n__Edit_Contact_Info"],false),aL,"h").write("</span></a></div>")
+}function ag(aM,aL){aL=aL.shiftBlocks(am);
+return aM.partial("tl/apps/profile/my_profile/partial/snap_bar",aL,null)
+}return N
+})();
+(function(){dust.register("top_card",dust.cache["tl/apps/profile/my_profile/embed/top_card"])
+})();(function(){dust.register("tl/apps/profile/my_profile/actions/CREATE_PROFILE_IN_ANOTHER_LANGUAGE",a);
+function a(c,b){return c.write('<a href="').reference(b.get(["link__createProfileInOtherLang"],false),b,"h").write('">').reference(b.get(["i18n__Create_profile_in_another_language"],false),b,"h").write("</a>")
+}return a
+})();
+(function(){dust.register("CREATE_PROFILE_IN_ANOTHER_LANGUAGE",dust.cache["tl/apps/profile/my_profile/actions/CREATE_PROFILE_IN_ANOTHER_LANGUAGE"])
+})();(function(){dust.register("tl/apps/profile/my_profile/embed/im_edit",p);
+function p(z,y){return z.section(y.get(["ContactInfo"],false),y,{"block":n},null)
+}function n(z,y){return z.section(y.get(["contactForm"],false),y,{"block":m},null)
+}function m(z,y){return z.section(y.get(["html"],false),y,{"block":k},null)
+}function k(z,y){return z.section(y.get(["contact_info"],false),y,{"block":i},null)
+}function i(z,y){return z.section(y.get(["formData"],false),y,{"block":g},null)
+}function g(z,y){return z.write('<form class="standard-form hover-form" name="').reference(y.get(["name"],false),y,"h").write('" method="').reference(y.get(["method"],false),y,"h").write('" action="').reference(y.get(["action"],false),y,"h").write('" id="im-edit"><strong class="hover-form-header">').reference(y.get(["i18n_currently_editing"],false),y,"h").write('</strong><fieldset id="imEditor">').exists(y.get(["imParam0"],false),y,{"else":f,"block":r},null).partial("tl/apps/profile/my_profile/partial/actions",y,{"trackSave":"prof-edit-im_handles-add-submit","trackCancel":"prof-edit-im_handles-add-cancel"}).section(y.get(["locale"],false),y,{"block":q},null).section(y.get(["timestamp"],false),y,{"block":o},null).section(y.get(["nudgeID"],false),y,{"block":l},null).section(y.get(["defaultLocaleParam"],false),y,{"block":j},null).section(y.get(["csrfToken"],false),y,{"block":h},null).section(y.get(["sourceAlias"],false),y,{"block":b},null).section(y.get(["useJsonResponse"],false),y,{"block":a},{"passedInValue":"true"}).section(y.get(["sectionNameParam"],false),y,{"block":x},{"passedInValue":"im"}).write("</fieldset></form>").helper("jsControl",y,{"block":w},{"name":"FrontierAJAXForm","disableControlInitData":"true"}).write('<script type="text/javascript" id="control-im-editor-').reference(y.get(["name"],false),y,"h").write('" class="li-control">if (imEditor) {$("#imEditor").find(".remove-item").on("click", function($e) {imEditor.clearEntry($e.originalEvent);});}<\/script>')
+}function f(z,y){return z.section(y.get(["imParam"],false),y,{"block":e},null)
+}function e(z,y){return z.section(y.get(["imIDParam"],false),y,{"block":d},null).write('<div class="fieldgroup">').section(y.get(["imIDParam"],false),y,{"block":c},null).reference(y.get(["type"],false),y,"h").reference(y.get(["fmt__im_type"],false),y,"h").section(y.get(["imServiceParam"],false),y,{"block":t},{"selectedValue":s}).write("</div>")
+}function d(z,y){return z.write("<legend><span>").reference(y.get(["i18n_im"],false),y,"h").write("</span></legend>")
+}function c(z,y){return z.write('<span class="error" id="').reference(y.getPath(true,["id"]),y,"h").write('-error"></span><input name="').reference(y.getPath(true,["name"]),y,"h").write('" id="').reference(y.getPath(true,["id"]),y,"h").write('" type="').reference(y.getPath(true,["type"]),y,"h").write('" value="').section(y.get(["IMs"],false),y,{"block":v},null).write('"/>')
+}function v(z,y){return z.exists(y.get(["username"],false),y,{"block":u},null)
+}function u(z,y){return z.reference(y.get(["username"],false),y,"h")
+}function t(z,y){return z.partial("tl/apps/profile/my_profile/partial/select_with_value",y,null)
+}function s(z,y){return z.reference(y.get(["IMType"],false),y,"h")
+}function r(z,y){return z.write("<legend><span>").reference(y.get(["i18n_im"],false),y,"h").write("</span></legend><ul><li>").partial("tl/apps/profile/my_profile/partial/im_input",y,{"imParam":y.get(["imParam0"],false),"imDbId":y.get(["firstIMDBID"],false),"imType":y.get(["firstIMType"],false),"imUserName":y.get(["firstIMUserName"],false)}).partial("tl/apps/profile/my_profile/partial/im_input",y,{"imParam":y.get(["imParam1"],false),"imDbId":y.get(["secondIMDBID"],false),"imType":y.get(["secondIMType"],false),"imUserName":y.get(["secondIMUserName"],false)}).partial("tl/apps/profile/my_profile/partial/im_input",y,{"imParam":y.get(["imParam2"],false),"imDbId":y.get(["thirdIMDBID"],false),"imType":y.get(["thirdIMType"],false),"imUserName":y.get(["thirdIMUserName"],false)}).write("</li></ul>")
+}function q(z,y){return z.partial("tl/apps/profile/my_profile/partial/hidden_with_value",y,null)
+}function o(z,y){return z.partial("tl/apps/profile/my_profile/partial/hidden_with_value",y,null)
+}function l(z,y){return z.partial("tl/apps/profile/my_profile/partial/hidden_with_value",y,null)
+}function j(z,y){return z.partial("tl/apps/profile/my_profile/partial/hidden_with_value",y,null)
+}function h(z,y){return z.partial("tl/apps/profile/my_profile/partial/hidden_with_value",y,null)
+}function b(z,y){return z.partial("tl/apps/profile/my_profile/partial/hidden_with_value",y,null)
+}function a(z,y){return z.partial("tl/apps/profile/my_profile/partial/hidden_with_value",y,null)
+}function x(z,y){return z.partial("tl/apps/profile/my_profile/partial/hidden_with_value",y,null)
+}function w(z,y){return z.write("{injectAfter: '.btn-primary',errorId: 'global-error',scrollIntoViewOnError : false,showCloseInError : true,successCallback: function(data) {$.fn.ProfileEdit.handleSaveSuccess({listTemplate : 'tl/apps/profile/my_profile/embed/contact_info',containerId : 'contact-info-section',responseData : data,onlyChildContent : true});},errorCallback: function(err) {$.fn.ProfileEdit.handleSaveFailure(err);},exceptionCallback : function() {$.fn.ProfileEdit.handleSaveException();}}")
+}return p
+})();
+(function(){dust.register("im_edit",dust.cache["tl/apps/profile/my_profile/embed/im_edit"])
+})();(function(){dust.register("tl/apps/profile/my_profile/embed/badge_edit",N);
+function N(aH,aG){return aH.helper("eq",aG,{"else":M,"block":t},{"key":ai,"value":"enabled"})
+}function M(aH,aG){return aH.section(aG.get(["Badge"],false),aG,{"block":L},null)
+}function L(aH,aG){return aH.section(aG.get(["badgeForm"],false),aG,{"block":K},null)
+}function K(aH,aG){return aH.section(aG.get(["html"],false),aG,{"block":J},null)
+}function J(aH,aG){return aH.exists(aG.getPath(false,["Badge","badges","formData","isVieweeSubscriber"]),aG,{"block":I},null)
+}function I(aH,aG){return aH.helper("eq",aG,{"else":H,"block":Z},{"key":x,"value":"enabled"}).helper("jsControl",aG,{"block":w},{"name":"FrontierAJAXForm","disableControlInitData":"true"})
+}function H(aH,aG){return aH.write('<form class="standard-form hover-form" name="').reference(aG.get(["name"],false),aG,"h").write('" method="').reference(aG.get(["method"],false),aG,"h").write('" action="').reference(aG.get(["action"],false),aG,"h").write('"><strong class="hover-form-header">').reference(aG.get(["i18n_currently_editing"],false),aG,"h",["s"]).write("</strong><fieldset><legend><span>").reference(aG.get(["i18n_badges"],false),aG,"h",["s"]).write("</span></legend>").section(aG.getPath(false,["Badge","badgeForm","html","showWhichBadge"]),aG,{"block":G},null).write("<hr /><ul><li>").section(aG.getPath(false,["Badge","badgeForm","html","showOpenlinkIcon"]),aG,{"block":ao},null).write("</li></ul>").partial("tl/apps/profile/my_profile/partial/actions",aG,{"trackSave":"nprofile-edit-badges-submit","trackCancel":"nprofile-edit-badges-cancel"}).write("</fieldset>").section(aG.get(["privacySettingsVersionTag"],false),aG,{"block":al},null).section(aG.get(["timestamp"],false),aG,{"block":ah},null).section(aG.get(["isJobSeeker"],false),aG,{"block":ag},{"passedInValue":aG.get(["isJobSeekerSubPlan"],false)}).section(aG.get(["isSubscriber"],false),aG,{"block":af},{"passedInValue":aG.getPath(false,["Badge","badges","formData","isVieweeSubscriber"])}).section(aG.get(["locale"],false),aG,{"block":ae},null).section(aG.get(["defaultLocaleParam"],false),aG,{"block":ad},null).section(aG.get(["csrfToken"],false),aG,{"block":ac},null).section(aG.get(["sourceAlias"],false),aG,{"block":ab},null).section(aG.get(["useJsonResponse"],false),aG,{"block":aa},{"passedInValue":"true"}).write("</form>")
+}function G(aH,aG){return aH.write("<ul>").section(aG.get(["showNone"],false),aG,{"block":F},null).section(aG.get(["showSubscriberIcon"],false),aG,{"block":aA},null).exists(aG.getPath(false,["Badge","badges","formData","isJobSeekerSubPlan"]),aG,{"block":au},null).write("</ul>")
+}function F(aH,aG){return aH.write('<li><label><input type="').reference(aG.getPath(true,["type"]),aG,"h").write('" id="').reference(aG.getPath(true,["id"]),aG,"h").write('" ').exists(aG.get(["noneForBadge"],false),aG,{"block":E},null).write(' value="').reference(aG.getPath(true,["value"]),aG,"h").write('" name="').reference(aG.getPath(true,["name"]),aG,"h").write('"><span class="accounticon noicon"></span> ').reference(aG.get(["i18n__none"],false),aG,"h",["s"]).write("</label></li>")
+}function E(aH,aG){return aH.write('checked="checked"')
+}function aA(aH,aG){return aH.write('<li><label><input type="').reference(aG.getPath(true,["type"]),aG,"h").write('" id="').reference(aG.getPath(true,["id"]),aG,"h").write('" ').exists(aG.get(["isSubscriberBadge"],false),aG,{"block":ay},null).write(' value="').reference(aG.getPath(true,["value"]),aG,"h").write('" name="').reference(aG.getPath(true,["name"]),aG,"h").write('"><span class="accounticon premiumicon').helper("eq",aG,{"block":aw},{"key":aG.get(["lix_show_premium_wordmark"],false),"value":"enabled"}).write('"></span> ').reference(aG.get(["i18n__premium_account"],false),aG,"h",["s"]).write("</label></li>")
+}function ay(aH,aG){return aH.write('checked="checked"')
+}function aw(aH,aG){return aH.write(" premium-wordmark")
+}function au(aH,aG){return aH.section(aG.get(["showJobSeekerIcon"],false),aG,{"block":ar},null)
+}function ar(aH,aG){return aH.write('<li><label><input type="').reference(aG.getPath(true,["type"]),aG,"h").write('" id="').reference(aG.getPath(true,["id"]),aG,"h").write('" ').exists(aG.get(["isJobSeekerBadge"],false),aG,{"block":ap},null).write(' value="').reference(aG.getPath(true,["value"]),aG,"h").write('" name="').reference(aG.getPath(true,["name"]),aG,"h").write('"><span class="accounticon jobseekericon"></span> ').reference(aG.get(["i18n__job_seeker"],false),aG,"h",["s"]).write("</label></li>")
+}function ap(aH,aG){return aH.write('checked="checked"')
+}function ao(aH,aG){return aH.section(aG.get(["showIcon"],false),aG,{"block":an},null)
+}function an(aH,aG){return aH.write('<div class="fieldgroup"><span class="error" id="').reference(aG.getPath(true,["id"]),aG,"h").write('-error"></span><input type="').reference(aG.getPath(true,["type"]),aG,"h").write('" id="').reference(aG.getPath(true,["id"]),aG,"h").write('" value="').reference(aG.getPath(true,["value"]),aG,"h").write('" ').exists(aG.get(["isOpenlinkEnabled"],false),aG,{"block":am},null).write(' name="').reference(aG.getPath(true,["name"]),aG,"h").write('"><label for="').reference(aG.getPath(true,["id"]),aG,"h").write('"><span class="accounticon openlinkicon"></span><a href="/static?key=pop/pop_more_openlink" onclick="LI.popup( \'/static?key=pop/pop_more_openlink\', {} ); return false;" title="').reference(aG.get(["i18n__New_window_will_open"],false),aG,"h",["et","s"]).write('">').reference(aG.get(["openlink"],false),aG,"h",["s"]).write("</a></label></div>")
+}function am(aH,aG){return aH.write('checked="checked"')
+}function al(aH,aG){return aH.partial("tl/apps/profile/my_profile/partial/hidden_with_value",aG,null)
+}function ah(aH,aG){return aH.partial("tl/apps/profile/my_profile/partial/hidden_with_value",aG,null)
+}function ag(aH,aG){return aH.partial("tl/apps/profile/my_profile/partial/hidden_with_value",aG,null)
+}function af(aH,aG){return aH.partial("tl/apps/profile/my_profile/partial/hidden_with_value",aG,null)
+}function ae(aH,aG){return aH.partial("tl/apps/profile/my_profile/partial/hidden_with_value",aG,null)
+}function ad(aH,aG){return aH.partial("tl/apps/profile/my_profile/partial/hidden_with_value",aG,null)
+}function ac(aH,aG){return aH.partial("tl/apps/profile/my_profile/partial/hidden_with_value",aG,null)
+}function ab(aH,aG){return aH.partial("tl/apps/profile/my_profile/partial/hidden_with_value",aG,null)
+}function aa(aH,aG){return aH.partial("tl/apps/profile/my_profile/partial/hidden_with_value",aG,null)
+}function Z(aH,aG){return aH.write('<form class="standard-form hover-form edit-badge-form-facelift" name="').reference(aG.get(["name"],false),aG,"h").write('" method="').reference(aG.get(["method"],false),aG,"h").write('" action="').reference(aG.get(["action"],false),aG,"h").write('"><strong class="hover-form-header">').reference(aG.get(["i18n_currently_editing"],false),aG,"h",["s"]).write("</strong><fieldset><legend><span>").reference(aG.get(["i18n_premium_options"],false),aG,"h",["s"]).write('</span><a href="#edit-badge-learn-more-dialog" title="').reference(aG.get(["i18n_learn_more"],false),aG,"h",["et","s"]).write('"><i class="learn-more-icon"><span aria-hidden="true" class="glyph"></span><span class="screen-reader-text">').reference(aG.get(["i18n_learn_more"],false),aG,"h",["s"]).write("</span></i></a>").helper("jsControl",aG,{"block":Y},{"name":"ModalDialogBox"}).write("</legend><ul>").section(aG.getPath(false,["Badge","badgeForm","html","showWhichBadge"]),aG,{"block":X},null).section(aG.getPath(false,["Badge","badgeForm","html","showOpenlinkIcon"]),aG,{"block":S},null).write("</ul>").partial("tl/apps/profile/my_profile/partial/actions",aG,{"trackSave":"nprofile-edit-badges-submit","trackCancel":"nprofile-edit-badges-cancel"}).write("</fieldset>").section(aG.get(["privacySettingsVersionTag"],false),aG,{"block":P},null).section(aG.get(["timestamp"],false),aG,{"block":O},null).section(aG.get(["isSubscriber"],false),aG,{"block":D},{"passedInValue":aG.getPath(false,["Badge","badges","formData","isVieweeSubscriber"])}).section(aG.get(["locale"],false),aG,{"block":C},null).section(aG.get(["defaultLocaleParam"],false),aG,{"block":B},null).section(aG.get(["csrfToken"],false),aG,{"block":A},null).section(aG.get(["sourceAlias"],false),aG,{"block":z},null).section(aG.get(["useJsonResponse"],false),aG,{"block":y},{"passedInValue":"true"}).partial("tl/apps/profile/my_profile/partial/premium/_topcard_edit_badge_learn_more",aG,null).write("</form>")
+}function Y(aH,aG){return aH.write("{title: '").reference(aG.get(["i18n_premium_options_title"],false),aG,"h",["j","s"]).write("',customClassName: 'topcard-edit-badge-learn-more-dialog'}")
+}function X(aH,aG){return aH.section(aG.get(["showSubscriberIcon"],false),aG,{"block":W},null).section(aG.get(["showNone"],false),aG,{"block":U},null)
+}function W(aH,aG){return aH.write('<li><div class="fieldgroup"><span class="error" id="').reference(aG.getPath(true,["id"]),aG,"h").write('-error"></span><input type="checkbox" id="').reference(aG.getPath(true,["id"]),aG,"h").write('" ').exists(aG.getPath(false,["Badge","badges","formData","isSubscriberBadge"]),aG,{"block":V},null).write(' value="').reference(aG.getPath(true,["value"]),aG,"h").write('" name="').reference(aG.getPath(true,["name"]),aG,"h").write('"><label for="').reference(aG.getPath(true,["id"]),aG,"h").write('">').reference(aG.get(["i18n_premium_account"],false),aG,"h",["s"]).write("</label></div></li>")
+}function V(aH,aG){return aH.write('checked="checked"')
+}function U(aH,aG){return aH.write('<li class="hidden"><input type="checkbox" id="').reference(aG.getPath(true,["id"]),aG,"h").write('" ').exists(aG.get(["noneForBadge"],false),aG,{"block":T},null).write(' value="').reference(aG.getPath(true,["value"]),aG,"h").write('" name="').reference(aG.getPath(true,["name"]),aG,"h").write('"></li>')
+}function T(aH,aG){return aH.write('checked="checked"')
+}function S(aH,aG){return aH.section(aG.get(["showIcon"],false),aG,{"block":R},null)
+}function R(aH,aG){return aH.write('<li><div class="fieldgroup"><span class="error" id="').reference(aG.getPath(true,["id"]),aG,"h").write('-error"></span><input type="').reference(aG.getPath(true,["type"]),aG,"h").write('" id="').reference(aG.getPath(true,["id"]),aG,"h").write('" value="').reference(aG.getPath(true,["value"]),aG,"h").write('" ').exists(aG.get(["isOpenlinkEnabled"],false),aG,{"block":Q},null).write(' name="').reference(aG.getPath(true,["name"]),aG,"h").write('"><label for="').reference(aG.getPath(true,["id"]),aG,"h").write('">').reference(aG.get(["i18n_open_profile"],false),aG,"h",["s"]).write("</label></div></li>")
+}function Q(aH,aG){return aH.write('checked="checked"')
+}function P(aH,aG){return aH.partial("tl/apps/profile/my_profile/partial/hidden_with_value",aG,null)
+}function O(aH,aG){return aH.partial("tl/apps/profile/my_profile/partial/hidden_with_value",aG,null)
+}function D(aH,aG){return aH.partial("tl/apps/profile/my_profile/partial/hidden_with_value",aG,null)
+}function C(aH,aG){return aH.partial("tl/apps/profile/my_profile/partial/hidden_with_value",aG,null)
+}function B(aH,aG){return aH.partial("tl/apps/profile/my_profile/partial/hidden_with_value",aG,null)
+}function A(aH,aG){return aH.partial("tl/apps/profile/my_profile/partial/hidden_with_value",aG,null)
+}function z(aH,aG){return aH.partial("tl/apps/profile/my_profile/partial/hidden_with_value",aG,null)
+}function y(aH,aG){return aH.partial("tl/apps/profile/my_profile/partial/hidden_with_value",aG,null)
+}function x(aH,aG){return aH.reference(aG.get(["lix_show_premium_edit_badge_facelift"],false),aG,"h")
+}function w(aH,aG){return aH.write("{injectAfter: '.btn-primary',errorId: 'global-error',scrollIntoViewOnError : false,showCloseInError : true,enableResizeScreen: false,successCallback: function(data) {$.fn.ProfileEdit.handleSaveSuccess({listTemplate : 'tl/apps/profile/my_profile/embed/badge',containerId : 'badge-container',responseData : data").helper("eq",aG,{"block":v},{"key":u,"value":"enabled"}).write("});},errorCallback: function(err) {$.fn.ProfileEdit.handleSaveFailure(err);},exceptionCallback : function() {$.fn.ProfileEdit.handleSaveException();}}")
+}function v(aH,aG){return aH.write(",redirectUrl : window.location.href")
+}function u(aH,aG){return aH.reference(aG.get(["lix_show_premium_edit_badge_facelift"],false),aG,"h")
+}function t(aH,aG){return aH.section(aG.get(["Badge"],false),aG,{"block":s},null)
+}function s(aH,aG){return aH.section(aG.get(["badgeForm"],false),aG,{"block":r},null)
+}function r(aH,aG){return aH.section(aG.get(["html"],false),aG,{"block":q},null)
+}function q(aH,aG){return aH.write("<h3>").reference(aG.get(["i18n__premium_profile"],false),aG,"h",["s"]).write('</h3><p class="toggle-description">').section(aG.getPath(false,["TopCard","topcard_background"]),aG,{"block":p},null).write("</p>").section(aG.getPath(false,["TopCard","topcard_background"]),aG,{"block":m},null).section(aG.get(["privacySettingsVersionTag"],false),aG,{"block":aF},null).section(aG.get(["timestamp"],false),aG,{"block":aE},null).section(aG.get(["isJobSeeker"],false),aG,{"block":aD},{"passedInValue":aG.get(["isJobSeekerSubPlan"],false)}).section(aG.get(["isSubscriber"],false),aG,{"block":aC},{"passedInValue":"true"}).section(aG.get(["locale"],false),aG,{"block":aB},null).section(aG.get(["defaultLocaleParam"],false),aG,{"block":az},null).section(aG.get(["csrfToken"],false),aG,{"block":ax},null).section(aG.get(["sourceAlias"],false),aG,{"block":av},null).section(aG.get(["useJsonResponse"],false),aG,{"block":at},{"passedInValue":"true"}).write("</form>").helper("jsControl",aG,{"block":aq},{"name":"FrontierAJAXForm","disableControlInitData":"true"})
+}function p(aH,aG){return aH.exists(aG.get(["hasPremiumEnabled"],false),aG,{"else":o,"block":n},null)
+}function o(aH,aG){return aH.reference(aG.get(["i18n__dont_show_premium"],false),aG,"h",["s"])
+}function n(aH,aG){return aH.reference(aG.get(["i18n__show_premium"],false),aG,"h",["s"])
+}function m(aH,aG){return aH.write('<form class="').exists(aG.get(["hasPremiumEnabled"],false),aG,{"else":l,"block":k},null).write('" name="').reference(aG.get(["name"],false),aG,"h").write('" method="').reference(aG.get(["method"],false),aG,"h").write('" action="').reference(aG.get(["action"],false),aG,"h").write('"><div class="status-toggle-container">').section(aG.get(["showWhichBadge"],false),aG,{"block":j},null).write('<input type="submit"></div>').helper("jsControl",aG,{"block":a},{"name":"ToggleSwitch"})
+}function l(aH,aG){return aH.write("premium-disabled")
+}function k(aH,aG){return aH.write("premium-enabled")
+}function j(aH,aG){return aH.write('<input type="checkbox" class="status-checkbox-large ').exists(aG.get(["hasPremiumEnabled"],false),aG,{"block":i},null).write('" id="toggle-demo2" ').exists(aG.get(["hasPremiumEnabled"],false),aG,{"block":h},null).write('><label for="toggle-demo2" tabindex="0"><span class="status-toggle"></span><span aria-hidden="true" class="off-icon hide"></span><span aria-hidden="true" class="on-icon hide"></span><span aria-hidden="true" class="off hide">').reference(aG.get(["i18n__no"],false),aG,"h",["s"]).write('</span><span aria-hidden="true" class="on hide">').reference(aG.get(["i18n__yes"],false),aG,"h",["s"]).write('</span></label><input type="radio" name="').section(aG.get(["showSubscriberIcon"],false),aG,{"block":g},null).write('" value="').section(aG.get(["showNone"],false),aG,{"block":f},null).write('" id="').section(aG.get(["showNone"],false),aG,{"block":e},null).write('" class="premium-radio-off" aria-hidden="true"/><input type="radio" name="').section(aG.get(["showSubscriberIcon"],false),aG,{"block":d},null).write('" value="').section(aG.get(["showSubscriberIcon"],false),aG,{"block":c},null).write('" id="').section(aG.get(["showSubscriberIcon"],false),aG,{"block":b},null).write('" class="premium-radio-on" aria-hidden="true"/>')
+}function i(aH,aG){return aH.write("checked")
+}function h(aH,aG){return aH.write("checked")
+}function g(aH,aG){return aH.reference(aG.getPath(true,["name"]),aG,"h")
+}function f(aH,aG){return aH.reference(aG.getPath(true,["value"]),aG,"h")
+}function e(aH,aG){return aH.reference(aG.getPath(true,["id"]),aG,"h")
+}function d(aH,aG){return aH.reference(aG.getPath(true,["name"]),aG,"h")
+}function c(aH,aG){return aH.reference(aG.getPath(true,["value"]),aG,"h")
+}function b(aH,aG){return aH.reference(aG.getPath(true,["id"]),aG,"h")
+}function a(aH,aG){return aH.write("{decorators: ['scripts/shared/ToggleSwitch/LargeToggleSwitchDecorator','scripts/shared/ToggleSwitch/ToggleSwitchRadioPairDecorator', 'scripts/shared/ToggleSwitch/ToggleSwitchSubmitDecorator'],onRadioClass: 'premium-radio-on',offRadioClass: 'premium-radio-off'}")
+}function aF(aH,aG){return aH.partial("tl/apps/profile/my_profile/partial/hidden_with_value",aG,null)
+}function aE(aH,aG){return aH.partial("tl/apps/profile/my_profile/partial/hidden_with_value",aG,null)
+}function aD(aH,aG){return aH.partial("tl/apps/profile/my_profile/partial/hidden_with_value",aG,null)
+}function aC(aH,aG){return aH.partial("tl/apps/profile/my_profile/partial/hidden_with_value",aG,null)
+}function aB(aH,aG){return aH.partial("tl/apps/profile/my_profile/partial/hidden_with_value",aG,null)
+}function az(aH,aG){return aH.partial("tl/apps/profile/my_profile/partial/hidden_with_value",aG,null)
+}function ax(aH,aG){return aH.partial("tl/apps/profile/my_profile/partial/hidden_with_value",aG,null)
+}function av(aH,aG){return aH.partial("tl/apps/profile/my_profile/partial/hidden_with_value",aG,null)
+}function at(aH,aG){return aH.partial("tl/apps/profile/my_profile/partial/hidden_with_value",aG,null)
+}function aq(aH,aG){return aH.write("{injectAfter: '.status-checkbox-large',errorId: 'global-error',enableResizeScreen: false,addProgressIndicator: false,successCallback: function(data) {$.fn.ProfileEdit.handleSaveSuccess({listTemplate : 'tl/apps/profile/my_profile/embed/badge',containerId : 'badge-container',responseData : data").helper("eq",aG,{"block":ak},{"key":aj,"value":"enabled"}).write("});},errorCallback: function(err) {$.fn.ProfileEdit.handleSaveFailure(err);},exceptionCallback : function() {$.fn.ProfileEdit.handleSaveException();}}")
+}function ak(aH,aG){return aH.write(",redirectUrl : window.location.href")
+}function aj(aH,aG){return aH.reference(aG.get(["lix_show_premium_toggle_settings"],false),aG,"h")
+}function ai(aH,aG){return aH.reference(aG.get(["lix_show_premium_toggle_settings"],false),aG,"h")
+}return N
+})();
+(function(){dust.register("badge_edit",dust.cache["tl/apps/profile/my_profile/embed/badge_edit"])
+})();(function(){dust.register("tl/apps/profile/my_profile/embed/name_bi",k);
+function k(o,n){return o.section(n.get(["BasicInfo"],false),n,{"block":i},{"numberOfConnections":n.getPath(false,["distance","numberOfConnections"])})
+}function i(o,n){return o.section(n.get(["basic_info"],false),n,{"block":h},null)
+}function h(o,n){return o.write('<div id="name-container" data-li-template="name"><div id="name" class="editable-item"><h1 class="field">').partial("tl/apps/profile/my_profile/partial/primary/edit/edit_field_button",n,{"customEditMsg":g}).write('<span class="n fn field-text">').exists(n.get(["isZhCnProfile"],false),n,{"else":f,"block":b},null).write("</span></h1>").exists(n.get(["nameForm"],false),n,{"block":l},null).exists(n.get(["phoneticname"],false),n,{"block":j},null).write("</div></div>")
+}function g(o,n){return o.reference(n.get(["i18n_edit_name"],false),n,"h")
+}function f(o,n){return o.exists(n.get(["isPortfolio"],false),n,{"else":e,"block":c},null)
+}function e(o,n){return o.write('<span class="full-name" ').helper("eq",n,{"block":d},{"key":n.get(["lix_enable_ugc_align"],false),"value":"enabled"}).write(">").reference(n.get(["fullname"],false),n,"h").write("</span>")
+}function d(o,n){return o.helper("dirAttr",n,{},{"text":n.get(["fullname"],false)})
+}function c(o,n){return o.write('<a href="').reference(n.get(["link__profileView"],false),n,"h",["s"]).write('" class="full-name">').reference(n.get(["fullname"],false),n,"h").write("</a>")
+}function b(o,n){return o.write('<span class="full-name">').reference(n.get(["fullname"],false),n,"h").exists(n.get(["englishNameForChineseUser"],false),n,{"else":a,"block":m},null).write("</span>")
+}function a(o,n){return o.write('<span class="empty-english-name-hint">(').reference(n.get(["i18n_no_english_first_name"],false),n,"h").write(")</span>")
+}function m(o,n){return o.write('<span class="english-name">(').reference(n.get(["englishNameForChineseUser"],false),n,"h").write(")</span>")
+}function l(o,n){return o.write('<div id="name-edit" class="edit-form"><!--').partial("tl/apps/profile/my_profile/embed/name_edit_bi",n,null).write("--></div>")
+}function j(o,n){return o.write('<span class="phonetic-full-name">').reference(n.get(["phoneticname"],false),n,"h").write("</span>")
+}return k
+})();
+(function(){dust.register("name_bi",dust.cache["tl/apps/profile/my_profile/embed/name_bi"])
+})();(function(){dust.register("tl/apps/profile/my_profile/embed/location_bi",n);
+function n(r,q){return r.section(q.get(["BasicInfo"],false),q,{"block":l},null)
+}function l(r,q){return r.section(q.get(["basic_info"],false),q,{"block":j},null)
+}function j(r,q){return r.write('<div id="location-container" data-li-template="location"><div id="location" class="editable-item"><div class="field">').partial("tl/apps/profile/my_profile/partial/primary/edit/edit_field_button",q,{"customEditMsg":h}).write('<dl class="field-text">').exists(q.get(["location_highlight"],false),q,{"block":f},null).exists(q.get(["industry_highlight"],false),q,{"block":e},null).write("</dl></div>").exists(q.get(["locationForm"],false),q,{"block":d},null).write('</div><div id="location-edit-field" class="editable-item inner-section">').notexists(q.get(["location_highlight"],false),q,{"block":c},null).notexists(q.get(["industry_highlight"],false),q,{"block":o},null).exists(q.get(["locationForm"],false),q,{"block":g},null).write("</div></div>")
+}function h(r,q){return r.reference(q.get(["i18n_edit_loc_ind"],false),q,"h")
+}function f(r,q){return r.write("<dt>").reference(q.get(["i18n__Location"],false),q,"h").write('</dt><dd><span class="locality">').reference(q.get(["location_highlight"],false),q,"h",["s"]).write("</span></dd>")
+}function e(r,q){return r.write("<dt>").reference(q.get(["i18n__Industry"],false),q,"h").write('</dt><dd class="industry">').reference(q.get(["industry_highlight"],false),q,"h",["s"]).write("</dd>")
+}function d(r,q){return r.write('<div id="location-edit" class="edit-form"><!--').partial("tl/apps/profile/my_profile/embed/location_edit_bi",q,null).write("--></div>")
+}function c(r,q){return r.partial("tl/apps/profile/my_profile/partial/_edit_field",q,{"editField":"countryCode-location-editLocationForm","ctaMsg":b,"ctaDescHeadline":a,"ctaDesc":p,"trk":"topcard-location"})
+}function b(r,q){return r.reference(q.get(["i18n_add_location"],false),q,"h")
+}function a(r,q){return r.reference(q.get(["i18n_location_desc"],false),q,"h")
+}function p(r,q){return r.reference(q.get(["i18n_members_with_loc"],false),q,"h")
+}function o(r,q){return r.partial("tl/apps/profile/my_profile/partial/_edit_field",q,{"editField":"industryChooser-editLocationForm","ctaMsg":m,"ctaDescHeadline":k,"ctaDesc":i,"trk":"topcard-industry"})
+}function m(r,q){return r.reference(q.get(["i18n_add_industry"],false),q,"h")
+}function k(r,q){return r.reference(q.get(["i18n_industry_desc"],false),q,"h")
+}function i(r,q){return r.reference(q.get(["i18n_members_with_industry"],false),q,"h")
+}function g(r,q){return r.write('<div id="location-edit-field-edit" class="edit-form"><!--').partial("tl/apps/profile/my_profile/embed/location_edit_bi",q,null).write("--></div>")
+}return n
+})();
+(function(){dust.register("location_bi",dust.cache["tl/apps/profile/my_profile/embed/location_bi"])
+})();(function(){dust.register("tl/apps/profile/my_profile/partial/npe/_recommended_section_card",e);
+var f={"customSectionId":d};
+function e(i,h){h=h.shiftBlocks(f);
+return i.write('<li class="recommended-section-').reference(h.get(["section"],false),h,"h").write('" data-rec-sctn-div="').block(h.getBlock("customSectionId"),h,{},null).write('" data-edit-form="').reference(h.get(["section"],false),h,"h").write('"><div class="recommended-section-content"><h5 class="recommended-section-title">').reference(h.get(["section_title"],false),h,"h").write('</h5><p class="recommended-section-value-statement">').reference(h.get(["section_value_statement"],false),h,"h").write("</p>").helper("eq",h,{"block":a},{"key":h.get(["lix_recommended_sections_wd"],false),"value":"treatment"}).write('</div><button class="recommended-section-add">').reference(h.get(["add_section_btn_txt"],false),h,"h").write("</button></li>")
+}function d(i,h){h=h.shiftBlocks(f);
+return i.exists(h.get(["sctnDivId"],false),h,{"else":c,"block":b},null)
+}function c(i,h){h=h.shiftBlocks(f);
+return i.write("background-").reference(h.get(["section"],false),h,"h")
+}function b(i,h){h=h.shiftBlocks(f);
+return i.reference(h.get(["sctnDivId"],false),h,"h")
+}function a(i,h){h=h.shiftBlocks(f);
+return i.exists(h.get(["section_with_duration"],false),h,{"block":g},null)
+}function g(i,h){h=h.shiftBlocks(f);
+return i.write('<aside class="recommended-section-duration"><span aria-hidden="true" class="recommended-section-duration-glyph"></span>').reference(h.get(["section_with_duration"],false),h,"h").write("</aside>")
+}return e
+})();
+(function(){dust.register("_recommended_section_card",dust.cache["tl/apps/profile/my_profile/partial/npe/_recommended_section_card"])
+})();
